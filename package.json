@@ -1,0 +1,63 @@
+{
+  "name": "react-ssr-core",
+  "version": "1.0.0",
+  "description": "react ssr redux react-router",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build:server": "webpack --config ./webpack/webpack_server.config.js",
+    "build:browser": "webpack --config ./webpack/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Long/react-ssr-core.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Paul-Long/react-ssr-core/issues"
+  },
+  "homepage": "https://github.com/Paul-Long/react-ssr-core#readme",
+  "devDependencies": {
+    "antd": "^3.8.2",
+    "autoprefixer": "^9.1.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-import": "^1.8.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "css-modules-require-hook": "^4.2.3",
+    "cssnano": "^4.0.5",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "history": "^4.7.2",
+    "i": "^0.3.6",
+    "ignore-loader": "^0.1.2",
+    "invariant": "^2.2.4",
+    "isomorphic-fetch": "^2.2.1",
+    "less": "^2.7.3",
+    "less-loader": "^4.1.0",
+    "npm": "^6.4.0",
+    "postcss-less": "^2.0.0",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-cluster": "0.0.5",
+    "log4js": "^3.0.5"
+  }
+}

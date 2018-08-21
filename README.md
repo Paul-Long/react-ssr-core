@@ -1,2 +1,2 @@
 # react-ssr-core
-react ssr  react-router redux
+React SSR  React-Router Redux
