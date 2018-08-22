@@ -2,6 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 const root = path.resolve(__dirname, '../');
+const client = path.resolve(root, 'src/client/');
 module.exports = {
   // JS 执行入口文件
   entry: path.resolve(root, 'src/client/render-server.js'),
@@ -17,6 +18,17 @@ module.exports = {
     filename: 'bundle_server.js',
     // 输出文件都放到 dist 目录下
     path: path.resolve(root, 'dist'),
+  },
+  resolve: {
+    alias: {
+      '@containers': path.resolve(client, 'containers'),
+      '@components': path.resolve(client, 'components'),
+      '@utils': path.resolve(client, 'utils'),
+      '@models': path.resolve(client, 'models'),
+      '@constants': path.resolve(client, 'constants'),
+      '@actions': path.resolve(client, 'actions'),
+      '@caches': path.resolve(client, 'caches'),
+    }
   },
   module: {
     rules: [

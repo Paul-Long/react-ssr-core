@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build:server": "webpack --config ./webpack/webpack_server.config.js",
-    "build:browser": "webpack --config ./webpack/webpack.config.js"
+    "build:server": "webpack --config ./webpack/webpack_server.config.js --color",
+    "build:browser": "webpack --config ./webpack/webpack.config.js --color"
   },
   "repository": {
     "type": "git",
@@ -56,6 +56,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "asset-require-hook": "^1.2.0",
     "express": "^4.16.3",
     "express-cluster": "0.0.5",
     "log4js": "^3.0.5"
