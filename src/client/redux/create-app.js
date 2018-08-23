@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom';
 import * as Routers from 'react-router-dom';
 import { Provider } from 'react-redux';
 import invariant from 'invariant';
-// import createHashHistory from 'history/createHashHistory';
-import { isFunction, isHTMLElement, isString } from './utils';
+import createHistory from 'history/createMemoryHistory';
+import { isFunction } from './utils';
 import create from './core';
 
 function createApp(opts = {}) {
   const { onEffect, onFetchOption, onReducer } = opts;
-  // const history = opts.history || createHashHistory();
+  const history = opts.history || createHistory();
   const createOpts = {
     setupApp(app) {
-      // app._history = patchHistory(history);
+      app._history = patchHistory(history);
     },
     onEffect,
     onFetchOption,
     onReducer,
-    // history,
+    history,
   };
 
   const app = create(createOpts);
@@ -61,13 +61,13 @@ function render(container, store, app) {
   ReactDOM.render(getProvider(store, app), container);
 }
 
-// function patchHistory(history) {
-//   const oldListen = history.listen;
-//   history.listen = (callback) => {
-//     callback(history.location);
-//     return oldListen.call(history, callback);
-//   };
-//   return history;
-// }
+function patchHistory(history) {
+  const oldListen = history.listen;
+  history.listen = (callback) => {
+    callback(history.location);
+    return oldListen.call(history, callback);
+  };
+  return history;
+}
 
 export default createApp;

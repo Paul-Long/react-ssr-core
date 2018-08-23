@@ -1,6 +1,11 @@
 import './Login.less';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Icon, Input, message } from 'antd';
+import Action from '@actions';
+import md5 from 'blueimp-md5';
+import invariant from '@utils/invariant';
+import receive from '@utils/receive';
 
 class Login extends React.PureComponent {
   state = {
@@ -12,17 +17,25 @@ class Login extends React.PureComponent {
     prefix: 'ss',
   };
 
+  componentWillReceiveProps(nextProps) {
+    receive.call(this, {
+      key: 'login', nextProps,
+      success: () => {
+        const { history } = nextProps;
+        message.success('登录成功');
+        history.push('/');
+      },
+      error: (err) => {
+        invariant(err, err);
+      }
+    });
+  }
+
   handleSubmit = () => {
     const { username, password } = this.state;
-    if (!username || username === '') {
-      message.info('请输入用户名');
-      return;
-    }
-    if (!password || password === '') {
-      message.info('请输入密码');
-      return;
-    }
-    console.log(username, password);
+    if (invariant(username, '请输入用户名')) return false;
+    if (invariant(password, '请输入密码')) return false;
+    Action.emit('user.login', { username, password: md5(password) });
   };
 
   handleChange = (key, value) => {
@@ -55,5 +68,11 @@ class Login extends React.PureComponent {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+    login: state.user.login,
+  };
+}
+
+export default connect(mapStateToProps)(Login);
 

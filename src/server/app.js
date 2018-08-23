@@ -13,8 +13,10 @@ require('asset-require-hook')({
 const express = require('express');
 const spa = require('./spa');
 const app = express();
+const proxy = require('./proxy');
 
 app.use(express.static('.'));
 app.get('/*', spa);
+proxy(app);
 
 module.exports = app;
