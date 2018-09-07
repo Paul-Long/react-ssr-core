@@ -1,6 +1,10 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import echarts from 'echarts';
+import Left from './Left';
+import Right from './Right';
+import Top from './Top';
+import Bottom from './Bottom';
 
 class Charts extends React.Component {
   componentDidMount() {
@@ -103,7 +107,12 @@ class Charts extends React.Component {
 
   render() {
     return (
-      <div ref={this.saveRef('chart')} style={{width: '100%', height: 500}} />
+      <div>
+        <Left />
+        <Right />
+        <Top />
+        <Bottom />
+      </div>
     );
   }
 }
