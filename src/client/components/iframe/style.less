@@ -1,0 +1,28 @@
+@header-background-color: #193D37;
+.iframe-flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ssr-iframe {
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid @header-background-color;
+  &-header, &-footer {
+    .iframe-flex-row;
+    height: 36px;
+  }
+  &-header {
+    background-color: @header-background-color;
+  }
+  &-content {
+    flex: 1;
+    display: flex;
+    & > iframe {
+      flex: 1;
+    }
+  }
+  &-footer {
+  }
+}

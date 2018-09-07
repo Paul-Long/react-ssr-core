@@ -4,7 +4,7 @@ import App from '@containers/app';
 import Login from '@containers/login';
 import '../themes';
 
-export default ({ history, url }) => {
+export default ({history, url}) => {
   const routes = (
     <Switch>
       <Route path='/login' exact component={Login} />

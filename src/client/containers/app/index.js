@@ -1,18 +1,19 @@
 import './App.less';
 import React from 'react';
-import Action from '@actions';
+import { Route } from 'react-router';
+import Charts from '@containers/charts';
+import Home from '@containers/home';
+import Help from '@containers/help';
+import About from '@containers/about';
 
 class App extends React.PureComponent {
-  componentWillMount() {
-    Action.emit('user.permission');
-  }
-
   render() {
-    const { children } = this.props;
     return (
       <div className='ssr-app'>
-        {children}
-        <p style={{color: 'white'}}>12345</p>
+        <Route path='/charts' exact component={Charts} />
+        <Route path='/help' exact component={Help} />
+        <Route path='/about' exact component={About} />
+        <Route path='/home' exact component={Home} />
       </div>
     );
   }

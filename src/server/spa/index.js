@@ -7,15 +7,17 @@ module.exports = function (req, res, next) {
   if (url.startsWith('/api/')) {
     return next();
   }
-  logger.info('spa path %s', url);
+  const start = new Date().getTime();
+  const content = render(url);
+  logger.debug(`spa route [${url}] render time = [${(new Date().getTime()) - start}ms]`);
   res.send(`
 <html>
-<link>
   <meta charset="UTF-8">
+  <link rel="icon" href="./public/images/favicon.ico" type="image/x-icon">
   <link href="./dist/app.css" rel="stylesheet">
 </head>
 <body>
-<div id="app">${render(url)}</div>
+<div id="app">${content}</div>
 <script src="./dist/bundle_browser.js"></script>
 </body>
 </html>
