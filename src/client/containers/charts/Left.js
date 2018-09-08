@@ -3,8 +3,9 @@ import Basic from './Basic';
 
 class Left extends Basic {
   render() {
+    const {prefixCls} = this.props;
     return (
-      <div>
+      <div className={`${prefixCls}-left`}>
 
       </div>
     );

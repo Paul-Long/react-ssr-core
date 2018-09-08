@@ -1,0 +1,38 @@
+@prefixCls-charts: ssr-charts;
+@border-color: #193d37;
+@border-style: 1px solid @border-color;
+
+.@{prefixCls-charts} {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  &-toolbar {
+    width: 52px;
+    border-right: @border-style;
+  }
+  &-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    &-center {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+    }
+  }
+  &-left {
+    flex: 1;
+  }
+  &-top {
+    height: 40px;
+    border-bottom: @border-style;
+  }
+  &-right {
+    border-left: @border-style;
+    width: 52px
+  }
+  &-bottom {
+    height: 30px;
+    border-top: @border-style;
+  }
+}

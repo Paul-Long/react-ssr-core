@@ -3,8 +3,9 @@ import Basic from './Basic';
 
 class Top extends Basic {
   render() {
+    const {prefixCls} = this.props;
     return (
-      <div>
+      <div className={`${prefixCls}-top`}>
 
       </div>
     );

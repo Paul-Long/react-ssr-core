@@ -1,15 +1,15 @@
 import React from 'react';
 import Basic from './Basic';
 
-class Right extends Basic {
+class ToolBar extends Basic {
   render() {
     const {prefixCls} = this.props;
     return (
-      <div className={`${prefixCls}-right`}>
+      <div className={`${prefixCls}-toolbar`}>
 
       </div>
     );
   }
 }
 
-export default Right;
+export default ToolBar;
