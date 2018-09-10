@@ -20,16 +20,14 @@ class Left extends Basic {
     window.removeEventListener('resize', this.resize);
   }
 
-  resize = (event) => {
-    setTimeout(() => {
-      const node = findDOMNode(this.cc);
-      const rect = node.getBoundingClientRect();
-      console.log(rect);
-      this.charts.setOption(option({
-        width: rect.width,
-        height: rect.height
-      }), false);
-    }, 200);
+  resize = () => {
+    this.charts.resize();
+    const node = findDOMNode(this.cc);
+    const rect = node.getBoundingClientRect();
+    this.charts.setOption(option({
+      width: rect.width,
+      height: rect.height
+    }), true);
   };
 
   saveRef = name => node => this[name] = node;

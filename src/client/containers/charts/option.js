@@ -36,8 +36,8 @@ function calculateMA(dayCount, data) {
   return result;
 }
 
+const data = splitData(baseData);
 export default ({width, height}) => {
-  const data = splitData(baseData);
   return {
     animation: false,
     tooltip: {
@@ -210,9 +210,27 @@ export default ({width, height}) => {
         }
       },
       {
-        name: 'MA30',
+        name: 'MA60',
         type: 'line',
-        data: calculateMA(30, data),
+        data: calculateMA(60, data),
+        smooth: true,
+        lineStyle: {
+          normal: {opacity: 0.5}
+        }
+      },
+      {
+        name: 'MA120',
+        type: 'line',
+        data: calculateMA(120, data),
+        smooth: true,
+        lineStyle: {
+          normal: {opacity: 0.5}
+        }
+      },
+      {
+        name: 'MA250',
+        type: 'line',
+        data: calculateMA(250, data),
         smooth: true,
         lineStyle: {
           normal: {opacity: 0.5}
