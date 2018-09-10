@@ -1,38 +1,134 @@
 @prefixCls-charts: ssr-charts;
 @border-color: #193d37;
 @border-style: 1px solid @border-color;
+@bottom-height: 24px;
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.flex-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .@{prefixCls-charts} {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100%;
   &-toolbar {
     width: 52px;
     border-right: @border-style;
+    padding: 2px 0;
+    .flex-column;
+    &-button {
+      font-size: 20px;
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      &:hover {
+        font-size: 22px;
+      }
+      &:active {
+        font-size: 18px;
+      }
+    }
   }
   &-content {
     display: flex;
     flex: 1;
-    flex-direction: column;
+    flex-direction: row;
     &-center {
       display: flex;
       flex: 1;
-      flex-direction: row;
+      flex-direction: column;
     }
   }
   &-left {
     flex: 1;
+    position: relative;
+    &-bg {
+      background-size: 70px 40px;
+      background-image: linear-gradient(90deg, @border-color 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(@border-color 1px, rgba(0, 0, 0, 0) 1px);
+      background-position: 20px 20px;
+      border: @border-style;
+      position: absolute;
+      z-index: -1;
+      top: 60px;
+      left: 48px;
+      right: 48px;
+      bottom: 130px;
+    }
   }
   &-top {
     height: 40px;
     border-bottom: @border-style;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &-ma, &-val, &-yield {
+      padding: 2px 7px;
+      margin-left: 30px;
+      border: @border-style;
+    }
   }
   &-right {
     border-left: @border-style;
     width: 52px
   }
   &-bottom {
-    height: 30px;
+    height: @bottom-height;
     border-top: @border-style;
+    .flex-between;
+    &-left, &-right {
+      .flex-row;
+      height: @bottom-height;
+    }
+    &-button {
+      min-width: 50px;
+      padding: 0 7px;
+      border-right: @border-style;
+      text-align: center;
+      cursor: pointer;
+      height: @bottom-height;
+      line-height: @bottom-height;
+    }
+    &-button.active {
+      background: #172422;
+    }
+    &-clock {
+      padding: 0 15px;
+      border-left: @border-style;
+      text-align: center;
+    }
   }
+}
+
+.ssr-icon-button {
+  .flex-center;
+}
+
+.ssr-icon-button.active {
+  background: #172422;
+  border: @border-style;
+}
+
+.ssr-checkbox-group {
 }

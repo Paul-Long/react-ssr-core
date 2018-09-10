@@ -9,7 +9,7 @@ module.exports = {
   '@text-color': '#ffebc8',
   '@text-color-secondary': '#ffebc8',
   '@border-radius-base': '2px',
-  '@border-color-base': '#233431',
+  '@border-color-base': '#193d37',
   '@border-color-split': '#253936',
   '@box-shadow-base': '2px 2px 0 0 rgba(0,0,0,0.50)',
   '@layout-body-background': 'transparent',

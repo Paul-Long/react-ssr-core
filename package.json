@@ -71,6 +71,7 @@
     "isomorphic-fetch": "^2.2.1",
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
+    "moment": "^2.22.2",
     "postcss-less": "^2.0.0",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.6.2",

@@ -47,7 +47,7 @@ config.mode = env;
 
 if (env === 'development') {
   config.devtool = 'source-map';
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  // config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 if (env === 'production') {

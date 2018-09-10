@@ -3,9 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Left from './Left';
 import Right from './Right';
-import Top from './Top';
-import Bottom from './Bottom';
-import Toolbar from './Toolbar';
+import Top from './top';
+import Bottom from './bottom';
+import Toolbar from './toolbar';
 
 class Charts extends React.Component {
   static propTypes = {
@@ -28,14 +28,14 @@ class Charts extends React.Component {
     const {prefixCls} = this.props;
     return (
       <div className={prefixCls}>
-        <Toolbar prefixCls={prefixCls} />
+        <Top prefixCls={prefixCls} />
         <div className={`${prefixCls}-content`}>
-          <Top prefixCls={prefixCls} />
+          <Toolbar prefixCls={prefixCls} />
           <div className={`${prefixCls}-content-center`}>
             <Left prefixCls={prefixCls} />
-            <Right prefixCls={prefixCls} />
+            <Bottom prefixCls={prefixCls} />
           </div>
-          <Bottom prefixCls={prefixCls} />
+          <Right prefixCls={prefixCls} />
         </div>
       </div>
     );
