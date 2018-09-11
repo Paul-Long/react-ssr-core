@@ -1,11 +1,12 @@
 import './style.less';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Left from './Left';
+import Left from './left';
 import Right from './Right';
 import Top from './top';
 import Bottom from './bottom';
 import Toolbar from './toolbar';
+import Manager from './Manager';
 
 class Charts extends React.Component {
   static propTypes = {
@@ -15,27 +16,31 @@ class Charts extends React.Component {
     prefixCls: 'ssr-charts'
   };
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.manager = new Manager();
   }
 
   shouldComponentUpdate() {
     return false;
   }
 
-  saveRef = name => node => (this[name] = node);
-
   render() {
     const {prefixCls} = this.props;
+    const props = {
+      prefixCls,
+      manager: this.manager,
+    };
     return (
       <div className={prefixCls}>
-        <Top prefixCls={prefixCls} />
+        <Top {...props} />
         <div className={`${prefixCls}-content`}>
-          <Toolbar prefixCls={prefixCls} />
+          <Toolbar {...props} />
           <div className={`${prefixCls}-content-center`}>
-            <Left prefixCls={prefixCls} />
-            <Bottom prefixCls={prefixCls} />
+            <Left {...props} />
+            <Bottom {...props} />
           </div>
-          <Right prefixCls={prefixCls} />
+          <Right {...props} />
         </div>
       </div>
     );

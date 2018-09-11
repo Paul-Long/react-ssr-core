@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "hot:start": "supervisor -w dist index.js",
+    "hot": "better-npm-run hot",
     "hot:client": "better-npm-run hot:client",
     "hot:server": "better-npm-run hot:server",
     "build:client": "better-npm-run build:client",
@@ -14,6 +15,12 @@
   "betterScripts": {
     "hot:client": {
       "command": "node ./src/server/hot.client.js",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "hot": {
+      "command": "node ./src/server/hot.js",
       "env": {
         "NODE_ENV": "development"
       }
