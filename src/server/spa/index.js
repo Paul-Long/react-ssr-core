@@ -18,6 +18,7 @@ module.exports = function (req, res, next) {
 </head>
 <body>
 <div id="app">${content}</div>
+<script src="./dist/echarts.min.js"></script>
 <script src="./dist/bundle_browser.js"></script>
 </body>
 </html>

@@ -24,6 +24,9 @@ const config = {
       '@caches': path.resolve(client, 'caches'),
     }
   },
+  externals: {
+    'echarts': 'echarts'
+  },
   module: {
     rules: [
       {

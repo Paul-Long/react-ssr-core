@@ -10,7 +10,8 @@
     "hot:client": "better-npm-run hot:client",
     "hot:server": "better-npm-run hot:server",
     "build:client": "better-npm-run build:client",
-    "build:server": "better-npm-run build:server"
+    "build:server": "better-npm-run build:server",
+    "build:echarts": "better-npm-run build:echarts"
   },
   "betterScripts": {
     "hot:client": {
@@ -39,6 +40,12 @@
     },
     "build:server": {
       "command": "webpack --config ./webpack/webpack.server.config.js --display-modules",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "build:echarts": {
+      "command": "webpack --config ./webpack/webpack.charts.config.js --display-modules",
       "env": {
         "NODE_ENV": "production"
       }
@@ -86,6 +93,7 @@
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
+    "react-router-bundle": "^1.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
