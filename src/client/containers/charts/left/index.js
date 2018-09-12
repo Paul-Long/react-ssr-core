@@ -13,12 +13,10 @@ class Left extends Basic {
     this.setOption();
     window.addEventListener('resize', this.resize);
     manager.on('maChange', this.handleMaChange);
-    window.addEventListener('mousemove', this.handleMouseMove);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
-    window.removeEventListener('mousemove', this.handleMouseMove);
   }
 
   updateSize = () => {
@@ -73,8 +71,15 @@ class Left extends Basic {
     const prefix = `${prefixCls}-left`;
     return (
       <div className={prefix}>
-        <div ref={this.saveRef('cc')} style={{width: '100%', height: '100%'}} />
-        <div ref={this.saveRef('bg')} className={`${prefix}-bg`} />
+        <div
+          ref={this.saveRef('cc')}
+          style={{width: '100%', height: '100%'}}
+          onMouseMove={this.handleMouseMove}
+        />
+        <div
+          ref={this.saveRef('bg')}
+          className={`${prefix}-bg`}
+        />
         <Tip prefixCls={prefix} manager={manager} />
       </div>
     );

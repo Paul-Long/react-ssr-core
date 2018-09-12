@@ -1,8 +1,19 @@
 import baseData from './data';
 import { MaCn, MaColor, VolumeColor } from '../varible';
+import {
+  axisPointer,
+  dataZoomInside,
+  dataZoomSlider,
+  seriesCandlestick,
+  seriesLine,
+  seriesBar,
+  xAxisCategory,
+  yAxisValue,
+  tooltipCross,
+  color,
+} from '@components/charts';
 
-const upColor = '#0BDD5C';
-const downColor = '#B63847';
+const {upColor, downColor} = color;
 
 function splitData(rawData) {
   const categoryData = [];
@@ -32,6 +43,8 @@ function calculateMA(dayCount, data) {
   return result;
 }
 
+const data = splitData(baseData);
+
 function grid(height) {
   const h1 = (height - 50 - 130) * 0.7;
   return [
@@ -46,25 +59,43 @@ function grid(height) {
       left: 50,
       right: 50,
       top: 50 + h1 + 30,
-      bottom: 130,
+      bottom: 100,
     }
   ];
 }
 
-const data = splitData(baseData);
+function dataZoom(height) {
+  return [
+    {
+      ...dataZoomInside,
+      xAxisIndex: [0, 1],
+      start: 90,
+      end: 100
+    },
+    {
+      ...dataZoomSlider,
+      xAxisIndex: [0, 1],
+      top: height - 80,
+      start: 98,
+      end: 100,
+      height: 20,
+    }
+  ];
+}
+
+function candlestick() {
+  return {
+    ...seriesCandlestick,
+    name: 'Dow-Jones index',
+    data: data.values,
+  };
+}
+
 export default ({width, height, mas = [], manager}) => {
   const option = {
     animation: false,
     tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross',
-      },
-      backgroundColor: '#FFEBC8',
-      padding: [5, 10],
-      textStyle: {
-        color: '#000000'
-      },
+      ...tooltipCross,
       position: function (pos, params, el, elRect, size) {
         const obj = {top: 10};
         obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
@@ -85,60 +116,39 @@ export default ({width, height, mas = [], manager}) => {
         }
       }
     },
-    axisPointer: {
-      link: {xAxisIndex: 'all'},
-      lineStyle: {
-        type: 'dashed'
-      }
-    },
+    axisPointer: {...axisPointer},
     xAxis: [
       {
-        type: 'category',
+        ...xAxisCategory,
         data: data.categoryData,
-        scale: true,
-        boundaryGap: false,
         axisLine: {onZero: false, show: false},
-        axisLabel: {
-          color: '#FFEBC8'
-        },
         splitLine: {show: false},
         splitNumber: 20,
-        min: 'dataMin',
-        max: 'dataMax',
         axisPointer: {
           z: 100
         }
       },
       {
-        type: 'category',
+        ...xAxisCategory,
         gridIndex: 1,
         data: data.categoryData,
-        scale: true,
-        boundaryGap: false,
         axisLine: {onZero: false},
         axisTick: {show: false},
         splitLine: {show: false},
         axisLabel: {show: false},
         splitNumber: 20,
-        min: 'dataMin',
-        max: 'dataMax'
       }
     ],
     yAxis: [
       {
-        scale: true,
-        splitArea: {
-          show: false
-        },
-        axisLabel: {
-          color: '#FFEBC8'
-        },
+        ...yAxisValue,
+        splitArea: {show: false},
         axisLine: {show: false},
         axisTick: {show: false},
         splitLine: {show: false},
       },
       {
-        scale: true,
+        ...yAxisValue,
         gridIndex: 1,
         splitNumber: 4,
         axisLabel: {
@@ -155,58 +165,15 @@ export default ({width, height, mas = [], manager}) => {
         splitLine: {show: false},
       }
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 90,
-        end: 100
-      },
-      {
-        show: true,
-        xAxisIndex: [0, 1],
-        type: 'slider',
-        top: height - 80,
-        start: 98,
-        end: 100
-      }
-    ],
-  };
-
-  const candlestick = {
-    name: 'Dow-Jones index',
-    type: 'candlestick',
-    data: data.values,
-    itemStyle: {
-      normal: {
-        color: upColor,
-        color0: downColor,
-        borderColor: null,
-        borderColor0: null
-      }
-    },
-    tooltip: {
-      formatter: function (param) {
-        param = param[0];
-        return [
-          'Date: ' + param.name + '<hr size=1 style="margin: 3px 0">',
-          'Open: ' + param.data[0] + '<br/>',
-          'Close: ' + param.data[1] + '<br/>',
-          'Lowest: ' + param.data[2] + '<br/>',
-          'Highest: ' + param.data[3] + '<br/>'
-        ].join('');
-      }
-    }
   };
 
   option.grid = grid(height);
 
   const maLines = mas.map((ma, i) => {
     return {
+      ...seriesLine,
       name: ma,
-      type: 'line',
       data: calculateMA(MaCn[ma], data),
-      smooth: true,
       lineStyle: {
         color: [MaColor[i]],
       }
@@ -214,8 +181,8 @@ export default ({width, height, mas = [], manager}) => {
   });
 
   const volume = {
+    ...seriesBar,
     name: 'Volume',
-    type: 'bar',
     xAxisIndex: 1,
     yAxisIndex: 1,
     data: data.volumes,
@@ -224,7 +191,7 @@ export default ({width, height, mas = [], manager}) => {
     }
   };
 
-  option.series = [candlestick, ...maLines, volume];
+  option.series = [candlestick(), ...maLines, volume];
 
 
   option.visualMap = {
@@ -239,6 +206,8 @@ export default ({width, height, mas = [], manager}) => {
       color: upColor
     }]
   };
+
+  option.dataZoom = dataZoom(height);
 
   const last = data.values[data.values.length - 1];
   manager.emit('baseData', {
