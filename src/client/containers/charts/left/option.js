@@ -59,7 +59,7 @@ function grid(height) {
       left: 50,
       right: 50,
       top: 50 + h1 + 30,
-      bottom: 100,
+      bottom: 60,
     }
   ];
 }
@@ -75,7 +75,7 @@ function dataZoom(height) {
     {
       ...dataZoomSlider,
       xAxisIndex: [0, 1],
-      top: height - 80,
+      top: height - 40,
       start: 98,
       end: 100,
       height: 20,

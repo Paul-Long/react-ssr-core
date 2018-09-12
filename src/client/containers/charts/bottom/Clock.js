@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 const FORMAT = 'HH:mm:ss';
 
@@ -9,12 +8,12 @@ class Clock extends React.PureComponent {
     prefixCls: PropTypes.string,
   };
   state = {
-    time: moment().format(FORMAT)
+    time: new Date().format(FORMAT)
   };
 
   componentDidMount() {
     setInterval(() => {
-      this.setState({time: moment().format(FORMAT)});
+      this.setState({time: new Date().format(FORMAT)});
     }, 1000);
   }
 

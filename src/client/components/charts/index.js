@@ -6,5 +6,5 @@ export { xAxisCategory, xAxisValue } from './xAxis';
 export { yAxisCategory, yAxisValue } from './yAxis';
 export { axisPointer } from './axisPointer';
 export { tooltip, tooltipCross, tooltipLine, tooltipShadow } from './tooltip';
-export color from './color';
+export * as color from './color';
 

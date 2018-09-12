@@ -1,6 +1,6 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import eCharts from 'echarts';
+import eCharts from '@components/echarts';
 import Basic from '../Basic';
 import option from './option';
 import Tip from './Tip';
@@ -73,7 +73,7 @@ class Left extends Basic {
       <div className={prefix}>
         <div
           ref={this.saveRef('cc')}
-          style={{width: '100%', height: '100%'}}
+          style={{width: '100%', height: 'calc(100% - 64px)'}}
           onMouseMove={this.handleMouseMove}
         />
         <div

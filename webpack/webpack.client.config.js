@@ -60,6 +60,12 @@ if (env === 'development') {
 }
 
 if (env === 'production') {
-
+  config.optimization = {
+    minimize: true,
+    noEmitOnErrors: true,
+    concatenateModules: true
+  };
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  config.plugins.push(new BundleAnalyzerPlugin());
 }
 module.exports = config;
