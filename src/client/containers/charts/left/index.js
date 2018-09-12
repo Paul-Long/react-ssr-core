@@ -1,6 +1,6 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import eCharts from '@components/echarts';
+import echarts from 'echarts';
 import Basic from '../Basic';
 import option from './option';
 import Tip from './Tip';
@@ -9,7 +9,7 @@ class Left extends Basic {
   componentDidMount() {
     const {manager} = this.props;
     const node = this.updateSize();
-    this.charts = eCharts.init(node);
+    this.charts = echarts.init(node);
     this.setOption();
     window.addEventListener('resize', this.resize);
     manager.on('maChange', this.handleMaChange);

@@ -1,6 +1,5 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
 const antTheme = require('./ant');
 
 const root = path.resolve(__dirname, '../');
@@ -68,7 +67,7 @@ if (env === 'production') {
     noEmitOnErrors: true,
     concatenateModules: true
   };
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-  config.plugins.push(new BundleAnalyzerPlugin());
+  // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  // config.plugins.push(new BundleAnalyzerPlugin());
 }
 module.exports = config;
