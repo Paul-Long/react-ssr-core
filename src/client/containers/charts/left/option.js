@@ -1,80 +1,76 @@
 import baseData from './data';
-import { MaCn, MaColor, VolumeColor } from '../varible';
-import {
-  axisPointer,
-  dataZoomInside,
-  dataZoomSlider,
-  seriesCandlestick,
-  seriesLine,
-  seriesBar,
-  xAxisCategory,
-  yAxisValue,
-  tooltipCross,
-  color,
-} from '@components/charts';
+import { axisPointer, color, dataZoomInside, dataZoomSlider, tooltipCross, } from '@components/charts';
+import kLineOption from './kLineOption';
+import volumeOption from './volumeOption';
+import macdOption from './macdOption';
+import tooltip from './tooltip';
 
-const {upColor, downColor} = color;
+const {upColor, downColor, gridBorderColor} = color;
 
 function splitData(rawData) {
   const categoryData = [];
   const values = [];
   const volumes = [];
+  const closes = [];
   for (let i = 0; i < rawData.length; i++) {
     categoryData.push(rawData[i].splice(0, 1)[0]);
     values.push(rawData[i]);
+    closes.push(rawData[i][2]);
     volumes.push([i, rawData[i][4], rawData[i][0] > rawData[i][1] ? 1 : -1]);
   }
-  return {categoryData, values, volumes};
-}
-
-function calculateMA(dayCount, data) {
-  const result = [];
-  for (let i = 0, len = data.values.length; i < len; i++) {
-    if (i < dayCount) {
-      result.push('-');
-      continue;
-    }
-    let sum = 0;
-    for (let j = 0; j < dayCount; j++) {
-      sum += data.values[i - j][1];
-    }
-    result.push(+(sum / dayCount).toFixed(3));
-  }
-  return result;
+  const lengths = closes.map(c => c.toString().length);
+  const maxLength = Math.max(...lengths);
+  const maxVolumes = Math.max(...volumes.map(v => Math.round(v[1] / 10000).toString().length));
+  return {categoryData, values, volumes, closes, maxLength: Math.max(maxLength, maxVolumes)};
 }
 
 const data = splitData(baseData);
 
-function grid(height) {
-  const h1 = (height - 50 - 130) * 0.7;
-  return [
-    {
-      top: 50,
-      left: 50,
-      right: 50,
-      bottom: height - h1 - 80,
-      height: h1,
-    },
-    {
-      left: 50,
-      right: 50,
-      top: 50 + h1 + 30,
-      bottom: 60,
-    }
-  ];
+function grid({height, maxLength, gridCount = 1}) {
+  const top = 50;
+  const contentHeight = height - top - 60;
+  const h = Math.round(contentHeight * 0.01);
+  const gridHeight = (gridCount - 1) * h * 10;
+  const left = ((maxLength - 1) * 7) + 3 + 10;
+  const grid0 = {
+    borderColor: gridBorderColor,
+    show: true,
+    top,
+    left,
+    right: 0,
+    height: contentHeight - (gridHeight * (gridCount - 1)) - 15,
+    bottom: (gridCount - 1) * gridHeight + 60,
+  };
+
+  const grids = [];
+  let t = grid0.height + top + 15;
+  for (let i = 0; i < gridCount - 1; i++) {
+    grids.push({
+      borderColor: gridBorderColor,
+      show: true,
+      left,
+      right: 0,
+      height: gridHeight - 15,
+      top: t,
+      bottom: height - t - gridHeight + 15,
+    });
+    t = t + gridHeight;
+  }
+  console.log(gridHeight, grid0, grids);
+  return [grid0, ...grids];
 }
 
 function dataZoom(height) {
   return [
     {
       ...dataZoomInside,
-      xAxisIndex: [0, 1],
+      xAxisIndex: [0, 1, 2],
       start: 90,
       end: 100
     },
     {
       ...dataZoomSlider,
-      xAxisIndex: [0, 1],
+      xAxisIndex: [0, 1, 2],
       top: height - 40,
       start: 98,
       end: 100,
@@ -83,116 +79,23 @@ function dataZoom(height) {
   ];
 }
 
-function candlestick() {
-  return {
-    ...seriesCandlestick,
-    name: 'Dow-Jones index',
-    data: data.values,
-  };
-}
-
-export default ({width, height, mas = [], manager}) => {
+export default ({width, height, mas = [], macd = false, manager}) => {
   const option = {
     animation: false,
-    tooltip: {
-      ...tooltipCross,
-      position: function (pos, params, el, elRect, size) {
-        const obj = {top: 10};
-        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
-        return obj;
-      },
-      formatter: function (params) {
-        if (params instanceof Array) {
-          params = params.find(p => p.seriesIndex === 0);
-          if (params) {
-            manager.emit('tooltip', {
-              open: params.data[1],
-              close: params.data[2],
-              lowest: params.data[3],
-              highest: params.data[4],
-              volume: params.data[5],
-            });
-          }
-        }
-      }
-    },
     axisPointer: {...axisPointer},
-    xAxis: [
-      {
-        ...xAxisCategory,
-        data: data.categoryData,
-        axisLine: {onZero: false, show: false},
-        splitLine: {show: false},
-        splitNumber: 20,
-        axisPointer: {
-          z: 100
-        }
-      },
-      {
-        ...xAxisCategory,
-        gridIndex: 1,
-        data: data.categoryData,
-        axisLine: {onZero: false},
-        axisTick: {show: false},
-        splitLine: {show: false},
-        axisLabel: {show: false},
-        splitNumber: 20,
-      }
-    ],
-    yAxis: [
-      {
-        ...yAxisValue,
-        splitArea: {show: false},
-        axisLine: {show: false},
-        axisTick: {show: false},
-        splitLine: {show: false},
-      },
-      {
-        ...yAxisValue,
-        gridIndex: 1,
-        splitNumber: 4,
-        axisLabel: {
-          color: '#FFEBC8',
-          formatter: function (value) {
-            if (value !== 0) {
-              return value / 10000;
-            }
-            return value;
-          }
-        },
-        axisLine: {show: false},
-        axisTick: {show: false},
-        splitLine: {show: false},
-      }
-    ],
+    xAxis: [],
+    yAxis: [],
   };
+  option.tooltip = tooltip({manager});
+  option.grid = grid({height, maxLength: data.maxLength, gridCount: 3});
+  const ko = kLineOption({category: data.categoryData, data: data.values, mas, gridIndex: 0, axisIndex: 0});
+  const vo = volumeOption({category: data.categoryData, data: data.volumes, gridIndex: 1, axisIndex: 1});
+  const mo = macdOption({category: data.categoryData, data: data.closes, gridIndex: 2, axisIndex: 2});
 
-  option.grid = grid(height);
+  option.xAxis = [ko.xAxis, vo.xAxis, mo.xAxis];
+  option.yAxis = [ko.yAxis, vo.yAxis, mo.yAxis];
 
-  const maLines = mas.map((ma, i) => {
-    return {
-      ...seriesLine,
-      name: ma,
-      data: calculateMA(MaCn[ma], data),
-      lineStyle: {
-        color: [MaColor[i]],
-      }
-    };
-  });
-
-  const volume = {
-    ...seriesBar,
-    name: 'Volume',
-    xAxisIndex: 1,
-    yAxisIndex: 1,
-    data: data.volumes,
-    itemStyle: {
-      color: VolumeColor[0]
-    }
-  };
-
-  option.series = [candlestick(), ...maLines, volume];
-
+  option.series = [...ko.series, ...vo.series, ...mo.series];
 
   option.visualMap = {
     show: false,

@@ -1,10 +1,16 @@
-import { fontColor } from './color';
+import { fontColor, splitLineColor } from './color';
 
 export const yAxisValue = {
   type: 'value',
   scale: true,
   axisLabel: {
     color: fontColor
+  },
+  splitLine: {
+    show: true,
+    lineStyle: {
+      color: splitLineColor,
+    }
   },
 };
 

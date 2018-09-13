@@ -1,4 +1,4 @@
-import { fontColor } from './color';
+import { fontColor, splitLineColor } from './color';
 
 export const xAxisCategory = {
   type: 'category',
@@ -9,6 +9,12 @@ export const xAxisCategory = {
   },
   min: 'dataMin',
   max: 'dataMax',
+  splitLine: {
+    show: true,
+    lineStyle: {
+      color: splitLineColor,
+    }
+  },
 };
 
 export const xAxisValue = {
