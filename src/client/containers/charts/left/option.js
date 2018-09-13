@@ -56,7 +56,6 @@ function grid({height, maxLength, gridCount = 1}) {
     });
     t = t + gridHeight;
   }
-  console.log(gridHeight, grid0, grids);
   return [grid0, ...grids];
 }
 

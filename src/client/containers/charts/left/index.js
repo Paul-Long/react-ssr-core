@@ -62,7 +62,7 @@ class Left extends Basic {
       return;
     }
     const option = this.charts.getOption();
-    let xy = this.charts.convertFromPixel({seriesIndex: 0}, [event.offsetX, event.offsetY]);
+    let xy = this.charts.convertFromPixel({seriesIndex: 0}, [event.clientY, event.clientY]);
     if (xy[0] >= option.series[0].data.length || xy[0] < option.dataZoom[1].startValue) {
       manager.emit('tipHide');
     }
