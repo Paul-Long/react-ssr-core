@@ -4,6 +4,7 @@ import echarts from 'echarts';
 import Basic from '../Basic';
 import option from './option';
 import Tip from './Tip';
+import MACDTip from './MACDTip';
 
 class Left extends Basic {
   componentDidMount() {
@@ -33,12 +34,15 @@ class Left extends Basic {
 
   setOption = (opt) => {
     opt = opt || {mas: []};
-    this.charts.setOption(option({
+    this.option = option({
       width: this.size.width,
       height: this.size.height,
       mas: opt.mas || [],
       manager: this.props.manager,
-    }), true);
+    });
+
+    this.mTip.updateStyle({top: this.option.grid[2].top - 20, left: this.option.grid[2].left});
+    this.charts.setOption(this.option, true);
   };
 
   resize = () => {
@@ -81,6 +85,7 @@ class Left extends Basic {
           className={`${prefix}-bg`}
         />
         <Tip prefixCls={prefix} manager={manager} />
+        <MACDTip ref={this.saveRef('mTip')} prefixCls={prefix} manager={manager} />
       </div>
     );
   }

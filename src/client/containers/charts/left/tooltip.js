@@ -29,6 +29,9 @@ export default function ({manager}) {
           } else if (series.seriesName === 'DEA') {
             macd.dea = series.data;
           }
+          if (Object.keys(macd).length > 0) {
+            manager.emit('macd-tip', macd);
+          }
         }
         // console.log(macd);
       }

@@ -38,21 +38,21 @@ function grid({height, maxLength, gridCount = 1}) {
     top,
     left,
     right: 0,
-    height: contentHeight - (gridHeight * (gridCount - 1)) - 15,
+    height: contentHeight - (gridHeight * (gridCount - 1)) - 20,
     bottom: (gridCount - 1) * gridHeight + 60,
   };
 
   const grids = [];
-  let t = grid0.height + top + 15;
+  let t = grid0.height + top + 20;
   for (let i = 0; i < gridCount - 1; i++) {
     grids.push({
       borderColor: gridBorderColor,
       show: true,
       left,
       right: 0,
-      height: gridHeight - 15,
+      height: gridHeight - 20,
       top: t,
-      bottom: height - t - gridHeight + 15,
+      bottom: height - t - gridHeight + 20,
     });
     t = t + gridHeight;
   }
