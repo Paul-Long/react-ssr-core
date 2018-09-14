@@ -112,10 +112,9 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
     const vo = volumeOption({category: data.categoryData, data: data.volumes, gridIndex, axisIndex});
     option.xAxis.push(vo.xAxis);
     option.yAxis.push(vo.yAxis);
-    option.series = [...option.series, ...vo.series];
     option.visualMap = {
       show: false,
-      seriesIndex: ko.series.length,
+      seriesIndex: option.series.length,
       dimension: 2,
       pieces: [{
         value: 1,
@@ -125,6 +124,7 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
         color: upColor
       }]
     };
+    option.series = [...option.series, ...vo.series];
   }
 
   if (indicators.some(o => o.indicator === Indicator.MACD)) {
