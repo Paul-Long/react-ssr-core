@@ -31,7 +31,7 @@ function grid({height, maxLength, gridCount = 1}) {
   const top = 50;
   const contentHeight = height - top - 60;
   const h = Math.round(contentHeight * 0.01);
-  const gridHeight = (gridCount - 1) * h * 10;
+  const gridHeight = (gridCount - 1) * h * (gridCount === 2 ? 20 : 10);
   const left = ((maxLength - 1) * 7) + 3 + 10;
   const grid0 = {
     borderColor: gridBorderColor,
