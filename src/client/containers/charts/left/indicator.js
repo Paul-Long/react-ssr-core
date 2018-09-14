@@ -52,3 +52,37 @@ export function calculateMACD(data) {
   }
   return macdData;
 }
+
+export function boll(data) {
+  const n = 26;
+  const k = 2;
+  let MA = data[0], MD, MB, UP, DN;
+  let arr = [], powArr = [];
+  let maSum = 0, powSum = 0;
+  const result = [];
+  for (let i = 0; i < data.length; i++) {
+    const close = data[i];
+    const pow = Math.pow(close - MA, 2);
+    if (arr.length >= n) {
+      maSum -= arr[0];
+      arr = arr.slice(1);
+      powSum -= powArr[0];
+      powArr = powArr.slice(1);
+    }
+    arr.push(close);
+    powArr.push(pow);
+    maSum += close;
+    powSum += pow;
+    MB = MA;
+    MA = maSum / arr.length;
+    MD = Math.sqrt(powSum / powArr.length);
+    if (arr.length >= n) {
+      UP = MB + (k * MD);
+      DN = MB - (k * MD);
+      result.push({MA, MB, MD, UP, DN});
+    } else {
+      result.push(null);
+    }
+  }
+  return result;
+}

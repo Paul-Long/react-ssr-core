@@ -1,8 +1,9 @@
 import baseData from './data';
-import { axisPointer, color, dataZoomInside, dataZoomSlider, tooltipCross, } from '@components/charts';
+import { axisPointer, color, dataZoomInside, dataZoomSlider, } from '@components/charts';
 import kLineOption from './kLineOption';
 import volumeOption from './volumeOption';
 import macdOption from './macdOption';
+import bollOption from './bollOption';
 import tooltip from './tooltip';
 import { Indicator, IndicatorStatus, MAS } from '../varible';
 
@@ -99,7 +100,7 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
   const ko = kLineOption({category: data.categoryData, data: data.values, mas, gridIndex, axisIndex, kLineType});
   option.xAxis = [ko.xAxis];
   option.yAxis = [ko.yAxis];
-  option.series = [...ko.series];
+  option.series = [...ko.series, ...bollOption({data: data.closes})];
 
   if (indicators.some(o => o.indicator === Indicator.VOLUME)) {
     gridIndex += 1;
