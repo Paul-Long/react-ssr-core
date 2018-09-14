@@ -2,6 +2,7 @@ import React from 'react';
 import Basic from '../Basic';
 import IconButton from '../IconButton';
 import Indicator from './Indicator';
+import KLine from './KLine';
 
 const icons = ['area-chart', 'pie-chart', 'bar-chart', 'dot-chart', 'line-chart'];
 
@@ -21,16 +22,17 @@ class ToolBar extends Basic {
     return (
       <div className={prefix}>
         <Indicator prefixCls={prefix} manager={manager} />
-        {icons.map(icon => (
-          <IconButton
-            prefixCls={prefix}
-            icon={icon}
-            key={icon}
-            value={icon}
-            active={icon === value}
-            onClick={this.handleClick}
-          />
-        ))}
+        <KLine prefixCls={prefix} manager={manager} />
+        {/*{icons.map(icon => (*/}
+        {/*<IconButton*/}
+        {/*prefixCls={prefix}*/}
+        {/*icon={icon}*/}
+        {/*key={icon}*/}
+        {/*value={icon}*/}
+        {/*active={icon === value}*/}
+        {/*onClick={this.handleClick}*/}
+        {/*/>*/}
+        {/*))}*/}
       </div>
     );
   }

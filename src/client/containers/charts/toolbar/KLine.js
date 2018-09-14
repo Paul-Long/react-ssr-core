@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import Basic from '../Basic';
 import IconButton from '../IconButton';
 import { Menu, Popover } from 'antd';
-import { Indicator, IndicatorStatus } from '@containers/charts/varible';
+import { KLineType } from '@containers/charts/varible';
 
-class IndicatorComponent extends Basic {
+class KLine extends Basic {
   static propTypes = {
     onChange: PropTypes.func
   };
   state = {
     visible: false,
-    selectedKeys: [],
   };
 
   handleClick = () => {
@@ -25,27 +24,16 @@ class IndicatorComponent extends Basic {
   };
 
   handleMenuClick = ({key}) => {
-    const {selectedKeys} = this.state;
     const {manager} = this.props;
-    const selected = !selectedKeys.some(s => s === key);
-    manager.emit('indicator', [{
-      indicator: key,
-      status: selected ? IndicatorStatus.OPEN : IndicatorStatus.CLOSE,
-    }]);
-    if (selected) {
-      const s = [...selectedKeys, key];
-      this.setState({selectedKeys: s});
-    } else {
-      this.setState({selectedKeys: selectedKeys.filter(s => s !== key)});
-    }
+    manager.emit('KLine-type', key);
   };
 
   renderMenu = () => {
     const {prefixCls} = this.props;
     return (
-      <Menu className={`${prefixCls}-menu`} onSelect={this.handleMenuClick} multiple selectedKeys={[]}>
-        <Menu.Item key={Indicator.MACD}>MACD</Menu.Item>
-        <Menu.Item key={Indicator.VOLUME}>交易量</Menu.Item>
+      <Menu className={`${prefixCls}-menu`} onSelect={this.handleMenuClick}>
+        <Menu.Item key={KLineType.KLINE}>K线图</Menu.Item>
+        <Menu.Item key={KLineType.KLINE_O}>空心K线图</Menu.Item>
       </Menu>
     );
   };
@@ -56,7 +44,7 @@ class IndicatorComponent extends Basic {
     return (
       <Popover
         content={this.renderMenu()}
-        placement='rightBottom'
+        placement='right'
         trigger='click'
         visible={visible}
         overlayClassName='charts-indicator'
@@ -64,8 +52,8 @@ class IndicatorComponent extends Basic {
       >
         <IconButton
           prefixCls={prefixCls}
-          icon={'area-chart'}
-          value={'area-chart'}
+          icon={'line-chart'}
+          value={'line-chart'}
           onClick={this.handleClick}
         />
       </Popover>
@@ -73,4 +61,4 @@ class IndicatorComponent extends Basic {
   }
 }
 
-export default IndicatorComponent;
+export default KLine;

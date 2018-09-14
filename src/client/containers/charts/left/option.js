@@ -83,7 +83,7 @@ function dataZoom({height, gridCount}) {
   ];
 }
 
-export default ({width, height, macd = false, manager, indicators = []}) => {
+export default ({width, height, macd = false, manager, indicators = [], kLineType}) => {
   const masAll = MAS.map(m => m.value);
   indicators = indicators.filter(o => o.status === IndicatorStatus.OPEN);
   const mas = indicators.filter(o => masAll.some(m => m === o.indicator));
@@ -96,7 +96,7 @@ export default ({width, height, macd = false, manager, indicators = []}) => {
   option.tooltip = tooltip({manager});
   let gridIndex = 0;
   let axisIndex = 0;
-  const ko = kLineOption({category: data.categoryData, data: data.values, mas, gridIndex, axisIndex});
+  const ko = kLineOption({category: data.categoryData, data: data.values, mas, gridIndex, axisIndex, kLineType});
   option.xAxis = [ko.xAxis];
   option.yAxis = [ko.yAxis];
   option.series = [...ko.series];

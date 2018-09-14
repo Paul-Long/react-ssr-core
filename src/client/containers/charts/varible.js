@@ -49,3 +49,8 @@ export const Indicator = {
   'MA120': 'MA120',
   'MA250': 'MA250',
 };
+
+export const KLineType = {
+  'KLINE': 'KLINE',
+  'KLINE_O': 'KLINE_O',
+};

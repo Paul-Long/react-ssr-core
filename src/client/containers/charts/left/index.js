@@ -5,12 +5,13 @@ import Basic from '../Basic';
 import option from './option';
 import Tip from './Tip';
 import MACDTip from './MACDTip';
-import { Indicator } from '../varible';
+import { Indicator, KLineType } from '../varible';
 
 class Left extends Basic {
   constructor(props) {
     super(props);
     this.indicators = [];
+    this.KLineType = KLineType.KLINE;
   }
 
   componentDidMount() {
@@ -22,6 +23,7 @@ class Left extends Basic {
     window.addEventListener('mousemove', this.handleMouseMove);
     manager.on('maChange', this.handleMaChange);
     manager.on('indicator', this.handleIndicatorChange);
+    manager.on('KLine-type', this.handleKLineChange);
   }
 
   componentWillUnmount() {
@@ -49,6 +51,7 @@ class Left extends Basic {
       mas: opt.mas || [],
       manager: this.props.manager,
       indicators: this.indicators,
+      kLineType: this.KLineType,
     });
 
     if (this.indicators.some(o => o.indicator === Indicator.MACD)) {
@@ -65,6 +68,11 @@ class Left extends Basic {
   resize = () => {
     this.charts.resize();
     this.updateSize();
+    this.setOption();
+  };
+
+  handleKLineChange = (type) => {
+    this.KLineType = type;
     this.setOption();
   };
 

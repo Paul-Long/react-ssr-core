@@ -1,8 +1,8 @@
-import { MaCn, MaColor } from '../varible';
-import { seriesCandlestick, seriesLine, xAxisCategory, yAxisValue } from '@components/charts';
+import { MaCn, MaColor, KLineType } from '../varible';
+import { seriesCandlestick, seriesCandlestickO, seriesLine, xAxisCategory, yAxisValue } from '@components/charts';
 import { calculateMA } from './indicator';
 
-export default function ({category, data, mas, gridIndex, axisIndex}) {
+export default function ({category, data, mas, gridIndex, axisIndex, kLineType}) {
   const xAxis = {
     ...xAxisCategory,
     gridIndex,
@@ -37,8 +37,12 @@ export default function ({category, data, mas, gridIndex, axisIndex}) {
     };
   });
 
+  let series = seriesCandlestick;
+  if (kLineType === KLineType.KLINE_O) {
+    series = seriesCandlestickO;
+  }
   const ks = {
-    ...seriesCandlestick,
+    ...series,
     name: 'KLine',
     xAxisIndex: axisIndex,
     yAxisIndex: axisIndex,

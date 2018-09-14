@@ -11,3 +11,15 @@ export const seriesCandlestick = {
     }
   },
 };
+
+export const seriesCandlestickO = {
+  type: 'candlestick',
+  itemStyle: {
+    normal: {
+      color: 'transparent',
+      color0: 'transparent',
+      borderColor: upColor,
+      borderColor0: downColor
+    }
+  },
+};

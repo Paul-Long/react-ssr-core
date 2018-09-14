@@ -1,5 +1,5 @@
 export { dataZoomInside, dataZoomSlider } from './dataZoom';
-export { seriesCandlestick } from './seriesCandlestick';
+export { seriesCandlestick, seriesCandlestickO } from './seriesCandlestick';
 export { seriesLine } from './seriesLine';
 export { seriesBar } from './seriesBar';
 export { xAxisCategory, xAxisValue } from './xAxis';
