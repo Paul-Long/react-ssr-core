@@ -46,6 +46,7 @@ class IndicatorComponent extends Basic {
       <Menu className={`${prefixCls}-menu`} onSelect={this.handleMenuClick} multiple selectedKeys={[]}>
         <Menu.Item key={Indicator.MACD}>MACD</Menu.Item>
         <Menu.Item key={Indicator.VOLUME}>交易量</Menu.Item>
+        <Menu.Item key={Indicator.BOLL}>布林带</Menu.Item>
       </Menu>
     );
   };

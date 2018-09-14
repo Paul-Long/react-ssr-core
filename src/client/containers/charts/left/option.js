@@ -100,7 +100,11 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
   const ko = kLineOption({category: data.categoryData, data: data.values, mas, gridIndex, axisIndex, kLineType});
   option.xAxis = [ko.xAxis];
   option.yAxis = [ko.yAxis];
-  option.series = [...ko.series, ...bollOption({data: data.closes})];
+  option.series = [...ko.series];
+
+  if (indicators.some(o => o.indicator === Indicator.BOLL)) {
+    option.series = [...option.series, ...bollOption({data: data.closes})];
+  }
 
   if (indicators.some(o => o.indicator === Indicator.VOLUME)) {
     gridIndex += 1;

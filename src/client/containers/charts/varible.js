@@ -42,6 +42,7 @@ export const IndicatorStatus = {
 export const Indicator = {
   'VOLUME': 'VOLUME',
   'MACD': 'MACD',
+  'BOLL': 'BOLL',
   'MA5': 'MA5',
   'MA10': 'MA10',
   'MA20': 'MA20',
