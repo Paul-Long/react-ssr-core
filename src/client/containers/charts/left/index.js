@@ -13,11 +13,13 @@ class Left extends Basic {
     this.charts = echarts.init(node);
     this.setOption();
     window.addEventListener('resize', this.resize);
+    window.addEventListener('mousemove', this.handleMouseMove);
     manager.on('maChange', this.handleMaChange);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
+    window.removeEventListener('mousemove', this.handleMouseMove);
   }
 
   updateSize = () => {
@@ -62,7 +64,7 @@ class Left extends Basic {
       return;
     }
     const option = this.charts.getOption();
-    let xy = this.charts.convertFromPixel({seriesIndex: 0}, [event.clientY, event.clientY]);
+    let xy = this.charts.convertFromPixel({seriesIndex: 0}, [event.offsetX, event.offsetY]);
     if (xy[0] >= option.series[0].data.length || xy[0] < option.dataZoom[1].startValue) {
       manager.emit('tipHide');
     }
@@ -78,7 +80,6 @@ class Left extends Basic {
         <div
           ref={this.saveRef('cc')}
           style={{width: '100%', height: 'calc(100% - 64px)'}}
-          onMouseMove={this.handleMouseMove}
         />
         <div
           ref={this.saveRef('bg')}

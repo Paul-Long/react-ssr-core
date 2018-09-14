@@ -1,3 +1,10 @@
+import Decimal from 'decimal.js-light';
+
+Decimal.set({
+  precision: 4,
+  rounding: Decimal.ROUND_HALF_DOWN
+});
+
 export function calculateMA(dayCount, data) {
   const result = [];
   for (let i = 0, len = data.length; i < len; i++) {
@@ -32,8 +39,8 @@ export function calculateMACD(data) {
     const close = data[i];
     emaFast = ((emaFast * (fast - 1)) + (close * 2)) / (fast + 1);
     emaSlow = ((emaSlow * (slow - 1)) + (close * 2)) / (slow + 1);
-    dif = emaFast - emaSlow;
-    deaSignal = ((deaSignal * (signal - 1)) + (dif * 2)) / (signal + 1);
+    dif = new Decimal(emaFast - emaSlow).toFixed(4);
+    deaSignal = new Decimal(((deaSignal * (signal - 1)) + (dif * 2)) / (signal + 1)).toFixed(4);
     macd = 2 * (dif - deaSignal);
     macdData.push({
       fast: emaFast,

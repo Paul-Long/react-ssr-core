@@ -98,7 +98,7 @@ export default ({width, height, mas = [], macd = false, manager}) => {
 
   option.visualMap = {
     show: false,
-    seriesIndex: option.series.length - 1,
+    seriesIndex: ko.series.length,
     dimension: 2,
     pieces: [{
       value: 1,
