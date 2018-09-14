@@ -6,6 +6,7 @@ import { Icon } from 'antd';
 class IconButton extends React.PureComponent {
   static propTypes = {
     prefixCls: PropTypes.string.isRequired,
+    className: PropTypes.string,
     icon: PropTypes.string.isRequired,
     active: PropTypes.bool,
     value: PropTypes.string,

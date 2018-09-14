@@ -1,5 +1,7 @@
 import React from 'react';
 import Basic from '../Basic';
+import IconButton from '../IconButton';
+import { Indicator, IndicatorStatus } from '../varible';
 
 class MACDTip extends Basic {
   state = {
@@ -18,6 +20,11 @@ class MACDTip extends Basic {
     });
   }
 
+  handleClose = () => {
+    const {manager} = this.props;
+    manager.emit('indicator', {indicator: Indicator.MACD, status: IndicatorStatus.CLOSE});
+  };
+
   updateStyle = (style) => {
     this.setState({style});
   };
@@ -29,6 +36,7 @@ class MACDTip extends Basic {
     return (
       <div className={prefix} style={style}>
         <span>MACD(12, 26, 9)</span>
+        <IconButton prefixCls={prefix} icon='close' active onClick={this.handleClose} />
         <div className={`${prefix}-dif`}>DIF <span>{dif}</span></div>
         <div className={`${prefix}-dea`}>DEA(9) <span>{dea}</span></div>
       </div>

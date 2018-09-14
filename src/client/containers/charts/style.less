@@ -105,6 +105,20 @@
       &-dea {
         color: yellow;
       }
+      &-button {
+        border: 1px solid #4a4a4a;
+        color: #4a4a4a;
+        border-radius: 3px;
+        margin-left: 5px;
+        margin-top: 1px;
+        &:hover {
+          color: white;
+          border-color: white;
+        }
+        &:active {
+          font-size: 10px;
+        }
+      }
     }
   }
   &-top {
@@ -169,4 +183,19 @@
 }
 
 .ssr-checkbox-group {
+}
+
+.charts-indicator {
+  & > .ant-popover-content {
+    .ant-popover-inner-content {
+      padding: 0;
+    }
+  }
+}
+
+.ssr-charts-toolbar-menu {
+  & > .ant-menu-item {
+    height: 30px !important;
+    line-height: 30px !important;
+  }
 }

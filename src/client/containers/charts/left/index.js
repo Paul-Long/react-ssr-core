@@ -5,8 +5,14 @@ import Basic from '../Basic';
 import option from './option';
 import Tip from './Tip';
 import MACDTip from './MACDTip';
+import { Indicator } from '../varible';
 
 class Left extends Basic {
+  constructor(props) {
+    super(props);
+    this.indicators = [];
+  }
+
   componentDidMount() {
     const {manager} = this.props;
     const node = this.updateSize();
@@ -15,6 +21,7 @@ class Left extends Basic {
     window.addEventListener('resize', this.resize);
     window.addEventListener('mousemove', this.handleMouseMove);
     manager.on('maChange', this.handleMaChange);
+    manager.on('indicator', this.handleIndicatorChange);
   }
 
   componentWillUnmount() {
@@ -41,15 +48,32 @@ class Left extends Basic {
       height: this.size.height,
       mas: opt.mas || [],
       manager: this.props.manager,
+      indicators: this.indicators,
     });
 
-    this.mTip.updateStyle({top: this.option.grid[2].top - 20, left: this.option.grid[2].left});
+    if (this.indicators.some(o => o.indicator === Indicator.MACD)) {
+      const macdSeries = this.option.series.find(s => s.seriesName === Indicator.MACD);
+      if (macdSeries) {
+        this.mTip.updateStyle({top: this.option.grid[macdSeries.gridIndex].top - 20, left: this.option.grid[2].left});
+      }
+    } else {
+      this.mTip.updateStyle({display: 'none'});
+    }
     this.charts.setOption(this.option, true);
   };
 
   resize = () => {
     this.charts.resize();
     this.updateSize();
+    this.setOption();
+  };
+
+  handleIndicatorChange = (indicators) => {
+    if (!(indicators instanceof Array)) {
+      indicators = [indicators];
+    }
+    this.indicators = this.indicators.filter(h => !indicators.some(o => o.indicator === h.indicator));
+    this.indicators = [...this.indicators, ...indicators];
     this.setOption();
   };
 

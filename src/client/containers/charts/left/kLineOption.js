@@ -32,8 +32,8 @@ export default function ({category, data, mas, gridIndex, axisIndex}) {
       lineStyle,
       xAxisIndex: axisIndex,
       yAxisIndex: axisIndex,
-      name: ma,
-      data: calculateMA(MaCn[ma], data),
+      name: ma.indicator,
+      data: calculateMA(MaCn[ma.indicator], data),
     };
   });
 

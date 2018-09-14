@@ -14,7 +14,6 @@ class Group extends React.PureComponent {
   };
 
   handleChange = (checkedValue) => {
-    console.log(checkedValue);
     const {onChange} = this.props;
     if (typeof onChange === 'function') {
       onChange(checkedValue);

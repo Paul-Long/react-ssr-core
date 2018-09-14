@@ -3,6 +3,7 @@ import Basic from '../Basic';
 import { Icon, Radio } from 'antd';
 import Group from './Group';
 import { MAS, VALS, YIELDS, MaType } from '../varible';
+import { IndicatorStatus } from '../varible';
 
 class Top extends Basic {
   state = {
@@ -27,7 +28,14 @@ class Top extends Basic {
   };
 
   handleMaChange = (mas) => {
-    this.props.manager.emit('maChange', mas);
+    const {manager} = this.props;
+    const values = MAS.map(m => {
+      return {
+        indicator: m.value,
+        status: mas.some(ma => ma === m.value) ? IndicatorStatus.OPEN : IndicatorStatus.CLOSE,
+      };
+    });
+    manager.emit('indicator', values);
   };
 
   render() {
