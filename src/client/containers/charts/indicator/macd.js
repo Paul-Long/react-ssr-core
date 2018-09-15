@@ -21,6 +21,11 @@ export default function ({category, data, gridIndex, axisIndex}) {
     axisLabel: {
       ...xAxisCategory.axisLabel,
       show: false,
+    },
+    axisPointer: {
+      label: {
+        show: false
+      }
     }
   };
   const yAxis = {

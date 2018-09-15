@@ -31,12 +31,15 @@ function grid({height, maxLength, gridCount = 1}) {
   const h = Math.round(contentHeight * 0.01);
   const gridHeight = h * 20;
   const left = ((maxLength - 1) * 7) + 3 + 10;
-  const grid0 = {
-    borderColor: GD_BorderColor,
+  const G = {
     show: true,
-    top,
     left,
-    right: 40,
+    right: 20,
+    borderColor: GD_BorderColor,
+  };
+  const grid0 = {
+    ...G,
+    top,
     height: contentHeight - (gridHeight * (gridCount - 1)) - 20,
     bottom: (gridCount - 1) * gridHeight + 60,
   };
@@ -45,17 +48,13 @@ function grid({height, maxLength, gridCount = 1}) {
   let t = grid0.height + top + 20;
   for (let i = 0; i < gridCount - 1; i++) {
     grids.push({
-      borderColor: GD_BorderColor,
-      show: true,
-      left,
-      right: 40,
+      ...G,
       height: gridHeight - 20,
       top: t,
       bottom: height - t - gridHeight + 20,
     });
     t = t + gridHeight;
   }
-  console.log(grid0, ...grids);
   return [grid0, ...grids];
 }
 
@@ -144,6 +143,7 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
   option.grid = grid({height, maxLength: data.maxLength, gridCount: gridIndex + 1});
   option.dataZoom = dataZoom({height, gridCount: gridIndex + 1});
   option.xAxis[option.xAxis.length - 1].axisLabel.show = true;
+  option.xAxis[option.xAxis.length - 1].axisPointer.label.show = true;
   const last = data.values[data.values.length - 1];
   manager.emit('baseData', {
     open: last[0],
