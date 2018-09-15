@@ -1,9 +1,6 @@
 #!/bin/bash
 
-SHELL_DIR=$(cd "$(dirname "$0")"; pwd)
-PROGRAM_PATH=$(cd "$(dirname "${SHELL_DIR}/..}")"; pwd)
-
-cd ${PROGRAM_PATH}
+cd ../
 
 echo "start npm install"
 npm i
