@@ -6,6 +6,7 @@ import option from './option';
 import Tip from './Tip';
 import MACDTip from './MACDTip';
 import { Indicator, KLineType } from '../varible';
+import { IndicatorStatus } from '@containers/charts/varible';
 
 class Left extends Basic {
   constructor(props) {
@@ -54,10 +55,17 @@ class Left extends Basic {
       kLineType: this.KLineType,
     });
 
-    if (this.indicators.some(o => o.indicator === Indicator.MACD)) {
-      const macdSeries = this.option.series.find(s => s.seriesName === Indicator.MACD);
+    if (this.indicators.some(o => o.indicator === Indicator.MACD && o.status === IndicatorStatus.OPEN)) {
+      const macdSeries = this.option.series.find(s => s.name === Indicator.MACD);
       if (macdSeries) {
-        this.mTip.updateStyle({top: this.option.grid[macdSeries.gridIndex].top - 20, left: this.option.grid[2].left});
+        const grid = this.option.grid[this.option.xAxis[macdSeries.xAxisIndex].gridIndex];
+        this.mTip.updateStyle({
+          display: 'flex',
+          top: grid.top - 20,
+          left: grid.left,
+        });
+      } else {
+        this.mTip.updateStyle({display: 'none'});
       }
     } else {
       this.mTip.updateStyle({display: 'none'});

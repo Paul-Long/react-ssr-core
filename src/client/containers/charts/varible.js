@@ -43,6 +43,7 @@ export const Indicator = {
   'VOLUME': 'VOLUME',
   'MACD': 'MACD',
   'BOLL': 'BOLL',
+  'KDJ': 'KDJ',
   'MA5': 'MA5',
   'MA10': 'MA10',
   'MA20': 'MA20',

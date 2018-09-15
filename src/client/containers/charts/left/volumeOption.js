@@ -10,7 +10,10 @@ export default function ({category, data, gridIndex, axisIndex}) {
     data: category,
     axisLine: {onZero: false},
     axisTick: {show: false},
-    axisLabel: {show: false},
+    axisLabel: {
+      ...xAxisCategory.axisLabel,
+      show: false,
+    },
     axisPointer: {
       label: {
         show: false,

@@ -5,14 +5,18 @@ const {bollUPColor, bollMBColor, bollDNColor} = color;
 
 export default function ({data}) {
   const bollData = boll(data);
-  const upLine = {
+  const series = {
     ...seriesLine,
+    xAxisIndex: 0,
+    yAxisIndex: 0,
+    showSymbol: false,
+  };
+  const upLine = {
+    ...series,
     lineStyle: {
       width: 1,
       color: bollUPColor,
     },
-    xAxisIndex: 0,
-    yAxisIndex: 0,
     name: 'BOLL-UP',
     data: bollData.map(b => b ? b.UP - b.DN : null),
     areaStyle: {
@@ -21,24 +25,20 @@ export default function ({data}) {
     stack: 'boll',
   };
   const mdLine = {
-    ...seriesLine,
+    ...series,
     lineStyle: {
       width: 1,
       color: bollMBColor,
     },
-    xAxisIndex: 0,
-    yAxisIndex: 0,
     name: 'BOLL-MB',
     data: bollData.map(b => b ? b.MB : null),
   };
   const downLine = {
-    ...seriesLine,
+    ...series,
     lineStyle: {
       width: 1,
       color: bollDNColor,
     },
-    xAxisIndex: 0,
-    yAxisIndex: 0,
     name: 'BOLL-DN',
     data: bollData.map(b => b ? b.DN : null),
     areaStyle: {

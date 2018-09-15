@@ -4,6 +4,7 @@ import kLineOption from './kLineOption';
 import volumeOption from './volumeOption';
 import macdOption from './macdOption';
 import bollOption from './bollOption';
+import kdjOption from './kdjOption';
 import tooltip from './tooltip';
 import { Indicator, IndicatorStatus, MAS } from '../varible';
 
@@ -32,14 +33,14 @@ function grid({height, maxLength, gridCount = 1}) {
   const top = 50;
   const contentHeight = height - top - 60;
   const h = Math.round(contentHeight * 0.01);
-  const gridHeight = (gridCount - 1) * h * (gridCount === 2 ? 20 : 10);
+  const gridHeight = h * 20;
   const left = ((maxLength - 1) * 7) + 3 + 10;
   const grid0 = {
     borderColor: gridBorderColor,
     show: true,
     top,
     left,
-    right: 0,
+    right: 40,
     height: contentHeight - (gridHeight * (gridCount - 1)) - 20,
     bottom: (gridCount - 1) * gridHeight + 60,
   };
@@ -51,13 +52,14 @@ function grid({height, maxLength, gridCount = 1}) {
       borderColor: gridBorderColor,
       show: true,
       left,
-      right: 0,
+      right: 40,
       height: gridHeight - 20,
       top: t,
       bottom: height - t - gridHeight + 20,
     });
     t = t + gridHeight;
   }
+  console.log(grid0, ...grids);
   return [grid0, ...grids];
 }
 
@@ -135,8 +137,17 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
     option.yAxis.push(mo.yAxis);
     option.series = [...option.series, ...mo.series];
   }
+  if (indicators.some(o => o.indicator === Indicator.KDJ)) {
+    gridIndex += 1;
+    axisIndex += 1;
+    const kdjo = kdjOption({category: data.categoryData, data: data.closes, gridIndex, axisIndex});
+    option.xAxis.push(kdjo.xAxis);
+    option.yAxis.push(kdjo.yAxis);
+    option.series = [...option.series, ...kdjo.series];
+  }
   option.grid = grid({height, maxLength: data.maxLength, gridCount: gridIndex + 1});
   option.dataZoom = dataZoom({height, gridCount: gridIndex + 1});
+  option.xAxis[option.xAxis.length - 1].axisLabel.show = true;
   const last = data.values[data.values.length - 1];
   manager.emit('baseData', {
     open: last[0],

@@ -8,7 +8,10 @@ export default function ({category, data, mas, gridIndex, axisIndex, kLineType})
     gridIndex,
     data: category,
     axisLine: {onZero: false, show: false},
-    axisLabel: {show: false},
+    axisLabel: {
+      ...xAxisCategory.axisLabel,
+      show: false,
+    },
     axisTick: {show: false},
     axisPointer: {
       label: {

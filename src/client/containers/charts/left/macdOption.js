@@ -18,6 +18,10 @@ export default function ({category, data, gridIndex, axisIndex}) {
     ...xAxisCategory,
     gridIndex,
     data: category,
+    axisLabel: {
+      ...xAxisCategory.axisLabel,
+      show: false,
+    }
   };
   const yAxis = {
     ...yAxisValue,

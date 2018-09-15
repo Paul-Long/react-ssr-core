@@ -84,5 +84,32 @@ export function boll(data) {
       result.push(null);
     }
   }
+  calculateKDJ(data);
+  return result;
+}
+
+export function calculateKDJ(data) {
+  data = data || [];
+  const N = 9;
+  let RSV, K = 50, D = 50, J, L9, H9, C8;
+  let arr = [];
+  const result = [];
+  for (let i = 0; i < data.length; i++) {
+    const C = data[i];
+    if (arr.length === 9) {
+      arr = arr.slice(1);
+      arr.push(C);
+      L9 = Math.min(...arr);
+      H9 = Math.max(...arr);
+      RSV = 100 * (C - L9) / (H9 - L9);
+      K = (K * 2 / 3) + (RSV * 1 / 3);
+      D = (D * 2 / 3) + (K / 3);
+      J = (3 * K) - (2 * D);
+      result.push({RSV, K, D, J});
+    } else {
+      arr.push(C);
+      result.push(null);
+    }
+  }
   return result;
 }
