@@ -1,15 +1,15 @@
-import { fontColor, splitLineColor } from './color';
+import { FontColor, SplitLineColor } from './color';
 
 export const yAxisValue = {
   type: 'value',
   scale: true,
   axisLabel: {
-    color: fontColor
+    color: FontColor
   },
   splitLine: {
     show: true,
     lineStyle: {
-      color: splitLineColor,
+      color: SplitLineColor,
     }
   },
 };
@@ -18,6 +18,6 @@ export const yAxisCategory = {
   type: 'category',
   scale: true,
   axisLabel: {
-    color: fontColor
+    color: FontColor
   },
 };

@@ -1,7 +1,7 @@
 import { xAxisCategory, yAxisValue, seriesBar, seriesLine, color } from '@components/charts';
-import { calculateMACD } from './indicator';
+import { calcMACD } from './indicator';
 
-const {upColor, downColor, difLineColor, deaLineColor, axisPointerLabelBackgroundColor} = color;
+const {upColor, downColor, difLineColor, deaLineColor} = color;
 
 function series(name, ser, axisIndex) {
   return {
@@ -13,7 +13,7 @@ function series(name, ser, axisIndex) {
 }
 
 export default function ({category, data, gridIndex, axisIndex}) {
-  data = calculateMACD(data);
+  data = calcMACD(data);
   const xAxis = {
     ...xAxisCategory,
     gridIndex,

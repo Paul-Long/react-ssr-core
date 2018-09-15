@@ -1,10 +1,10 @@
-import { boll } from './indicator';
+import { calcBOLL } from './indicator';
 import { seriesLine, color } from '@components/charts';
 
 const {bollUPColor, bollMBColor, bollDNColor} = color;
 
 export default function ({data}) {
-  const bollData = boll(data);
+  const bollData = calcBOLL(data);
   const series = {
     ...seriesLine,
     xAxisIndex: 0,

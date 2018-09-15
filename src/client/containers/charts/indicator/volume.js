@@ -1,7 +1,7 @@
 import { VolumeColor } from '../varible';
 import { color, seriesBar, xAxisCategory, yAxisValue } from '@components/charts';
 
-const {fontColor} = color;
+const {FontColor} = color;
 
 export default function ({category, data, gridIndex, axisIndex}) {
   const xAxis = {
@@ -25,7 +25,7 @@ export default function ({category, data, gridIndex, axisIndex}) {
     gridIndex,
     splitNumber: 4,
     axisLabel: {
-      color: fontColor,
+      color: FontColor,
       formatter: function (value) {
         if (value !== 0) {
           return value / 10000;

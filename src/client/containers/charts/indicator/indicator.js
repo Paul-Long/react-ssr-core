@@ -5,7 +5,7 @@ Decimal.set({
   rounding: Decimal.ROUND_HALF_DOWN
 });
 
-export function calculateMA(dayCount, data) {
+export function calcMA(dayCount, data) {
   const result = [];
   for (let i = 0, len = data.length; i < len; i++) {
     if (i < dayCount) {
@@ -21,7 +21,7 @@ export function calculateMA(dayCount, data) {
   return result;
 }
 
-export function calculateMACD(data) {
+export function calcMACD(data) {
   data = data || [];
   const fast = 12;
   const slow = 26;
@@ -53,7 +53,7 @@ export function calculateMACD(data) {
   return macdData;
 }
 
-export function boll(data) {
+export function calcBOLL(data) {
   const n = 26;
   const k = 2;
   let MA = data[0], MD, MB, UP, DN;
@@ -84,11 +84,10 @@ export function boll(data) {
       result.push(null);
     }
   }
-  calculateKDJ(data);
   return result;
 }
 
-export function calculateKDJ(data) {
+export function calcKDJ(data) {
   data = data || [];
   const N = 9;
   let RSV, K = 50, D = 50, J, L9, H9, C8;

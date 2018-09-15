@@ -1,6 +1,6 @@
 import { MaCn, MaColor, KLineType } from '../varible';
 import { seriesCandlestick, seriesCandlestickO, seriesLine, xAxisCategory, yAxisValue } from '@components/charts';
-import { calculateMA } from './indicator';
+import { calcMA } from './indicator';
 
 export default function ({category, data, mas, gridIndex, axisIndex, kLineType}) {
   const xAxis = {
@@ -36,7 +36,7 @@ export default function ({category, data, mas, gridIndex, axisIndex, kLineType})
       xAxisIndex: axisIndex,
       yAxisIndex: axisIndex,
       name: ma.indicator,
-      data: calculateMA(MaCn[ma.indicator], data),
+      data: calcMA(MaCn[ma.indicator], data),
     };
   });
 

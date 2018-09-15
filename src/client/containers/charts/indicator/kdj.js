@@ -1,8 +1,8 @@
 import { seriesLine, xAxisCategory, yAxisValue } from '@components/charts';
-import { calculateKDJ } from './indicator';
+import { calcKDJ } from './indicator';
 
 export default function ({category, data, gridIndex, axisIndex}) {
-  const kdjData = calculateKDJ(data);
+  const kdjData = calcKDJ(data);
   const xAxis = {
     ...xAxisCategory,
     gridIndex,

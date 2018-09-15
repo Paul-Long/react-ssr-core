@@ -1,14 +1,18 @@
+import * as color from './color';
+
+const {DZ_BgColor, DZ_HandleColor, DZ_DataBgColor} = color;
+
 export const dataZoomSlider = {
   show: true,
   type: 'slider',
-  backgroundColor: '#1A1F1E',
+  backgroundColor: DZ_BgColor,
   borderColor: 'transparent',
   handleStyle: {
-    color: '#193d37'
+    color: DZ_HandleColor
   },
   dataBackground: {
     lineStyle: {
-      color: '#193D37',
+      color: DZ_DataBgColor,
       width: 1,
       opacity: 1,
     }

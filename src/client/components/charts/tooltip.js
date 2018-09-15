@@ -1,11 +1,11 @@
-import { tooltipBackgroundColor, tooltipFontColor } from './color';
+import { TT_BgColor, TT_FontColor } from './color';
 
 export const tooltip = {
   trigger: 'axis',
-  backgroundColor: tooltipBackgroundColor,
+  backgroundColor: TT_BgColor,
   padding: [5, 10],
   textStyle: {
-    color: tooltipFontColor
+    color: TT_FontColor
   },
 };
 

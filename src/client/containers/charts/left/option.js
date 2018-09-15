@@ -1,14 +1,10 @@
 import baseData from './data';
 import { axisPointer, color, dataZoomInside, dataZoomSlider, } from '@components/charts';
-import kLineOption from './kLineOption';
-import volumeOption from './volumeOption';
-import macdOption from './macdOption';
-import bollOption from './bollOption';
-import kdjOption from './kdjOption';
 import tooltip from './tooltip';
 import { Indicator, IndicatorStatus, MAS } from '../varible';
+import { Option } from '../indicator';
 
-const {upColor, downColor, gridBorderColor} = color;
+const {upColor, downColor, GD_BorderColor} = color;
 
 function splitData(rawData) {
   const categoryData = [];
@@ -36,7 +32,7 @@ function grid({height, maxLength, gridCount = 1}) {
   const gridHeight = h * 20;
   const left = ((maxLength - 1) * 7) + 3 + 10;
   const grid0 = {
-    borderColor: gridBorderColor,
+    borderColor: GD_BorderColor,
     show: true,
     top,
     left,
@@ -49,7 +45,7 @@ function grid({height, maxLength, gridCount = 1}) {
   let t = grid0.height + top + 20;
   for (let i = 0; i < gridCount - 1; i++) {
     grids.push({
-      borderColor: gridBorderColor,
+      borderColor: GD_BorderColor,
       show: true,
       left,
       right: 40,
@@ -99,19 +95,19 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
   option.tooltip = tooltip({manager});
   let gridIndex = 0;
   let axisIndex = 0;
-  const ko = kLineOption({category: data.categoryData, data: data.values, mas, gridIndex, axisIndex, kLineType});
+  const ko = Option.kLine({category: data.categoryData, data: data.values, mas, gridIndex, axisIndex, kLineType});
   option.xAxis = [ko.xAxis];
   option.yAxis = [ko.yAxis];
   option.series = [...ko.series];
 
   if (indicators.some(o => o.indicator === Indicator.BOLL)) {
-    option.series = [...option.series, ...bollOption({data: data.closes})];
+    option.series = [...option.series, ...Option.boll({data: data.closes})];
   }
 
   if (indicators.some(o => o.indicator === Indicator.VOLUME)) {
     gridIndex += 1;
     axisIndex += 1;
-    const vo = volumeOption({category: data.categoryData, data: data.volumes, gridIndex, axisIndex});
+    const vo = Option.volume({category: data.categoryData, data: data.volumes, gridIndex, axisIndex});
     option.xAxis.push(vo.xAxis);
     option.yAxis.push(vo.yAxis);
     option.visualMap = {
@@ -132,7 +128,7 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
   if (indicators.some(o => o.indicator === Indicator.MACD)) {
     gridIndex += 1;
     axisIndex += 1;
-    const mo = macdOption({category: data.categoryData, data: data.closes, gridIndex, axisIndex});
+    const mo = Option.macd({category: data.categoryData, data: data.closes, gridIndex, axisIndex});
     option.xAxis.push(mo.xAxis);
     option.yAxis.push(mo.yAxis);
     option.series = [...option.series, ...mo.series];
@@ -140,7 +136,7 @@ export default ({width, height, macd = false, manager, indicators = [], kLineTyp
   if (indicators.some(o => o.indicator === Indicator.KDJ)) {
     gridIndex += 1;
     axisIndex += 1;
-    const kdjo = kdjOption({category: data.categoryData, data: data.closes, gridIndex, axisIndex});
+    const kdjo = Option.kdj({category: data.categoryData, data: data.closes, gridIndex, axisIndex});
     option.xAxis.push(kdjo.xAxis);
     option.yAxis.push(kdjo.yAxis);
     option.series = [...option.series, ...kdjo.series];
