@@ -4,6 +4,7 @@ import kdj from './kdj';
 import kLine from './kLine';
 import macd from './macd';
 import volume from './volume';
+import rsi from './rsi';
 
 export const Option = {
   boll,
@@ -11,6 +12,7 @@ export const Option = {
   macd,
   volume,
   kdj,
+  rsi,
 };
 
 export const Indicator = {
@@ -18,5 +20,6 @@ export const Indicator = {
   calcMACD: Indicators.calcMACD,
   calcKDJ: Indicators.calcKDJ,
   calcMA: Indicators.calcMA,
+  calcRSI: Indicators.calcRSI,
 };
 

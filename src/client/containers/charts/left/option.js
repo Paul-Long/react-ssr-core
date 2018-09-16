@@ -11,16 +11,19 @@ function splitData(rawData) {
   const values = [];
   const volumes = [];
   const closes = [];
+  const rsi = [];
   for (let i = 0; i < rawData.length; i++) {
     categoryData.push(rawData[i].splice(0, 1)[0]);
+    const [open, close, lowest, highest, volume] = rawData[i];
     values.push(rawData[i]);
-    closes.push(rawData[i][2]);
-    volumes.push([i, rawData[i][4], rawData[i][0] > rawData[i][1] ? 1 : -1]);
+    closes.push(close);
+    rsi.push(close - open);
+    volumes.push([i, volume, open > close ? 1 : -1]);
   }
   const lengths = closes.map(c => c.toString().length);
   const maxLength = Math.max(...lengths);
   const maxVolumes = Math.max(...volumes.map(v => Math.round(v[1] / 10000).toString().length));
-  return {categoryData, values, volumes, closes, maxLength: Math.max(maxLength, maxVolumes)};
+  return {categoryData, values, volumes, rsi, closes, maxLength: Math.max(maxLength, maxVolumes)};
 }
 
 const data = splitData(baseData);

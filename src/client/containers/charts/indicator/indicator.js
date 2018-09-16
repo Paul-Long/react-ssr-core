@@ -112,3 +112,41 @@ export function calcKDJ(data) {
   }
   return result;
 }
+
+export function calcRSI(data, N = 14) {
+  let result = [];
+  let arr = [];
+  let A, B, RS, RS1, RSI, T1 = 0, T2 = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (arr.length === N) {
+      if (arr[0] < 0) {
+        T2 += arr[0];
+      } else {
+        T1 -= arr[0];
+      }
+      arr = arr.slice(1);
+    }
+    const S = data[i];
+    if (S > 0) {
+      T1 += S;
+    } else {
+      T2 -= S;
+    }
+
+    arr.push(S);
+    if (arr.length === N) {
+      A = T1 / N;
+      B = T2 / N;
+      RS = A / B;
+      RS1 = RS / (1 + RS);
+      RSI = 100 * RS1;
+      result.push({A, B, RS, RSI});
+    } else {
+      result.push(null);
+    }
+  }
+
+  console.log(result);
+
+  return result;
+}
