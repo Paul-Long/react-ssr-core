@@ -44,6 +44,7 @@ export const Indicator = {
   'MACD': 'MACD',
   'BOLL': 'BOLL',
   'KDJ': 'KDJ',
+  'RSI': 'RSI',
   'MA5': 'MA5',
   'MA10': 'MA10',
   'MA20': 'MA20',

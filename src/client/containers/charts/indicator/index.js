@@ -5,14 +5,16 @@ import kLine from './kLine';
 import macd from './macd';
 import volume from './volume';
 import rsi from './rsi';
+import ma from './ma';
 
-export const Option = {
+export const Options = {
   boll,
   kLine,
   macd,
   volume,
   kdj,
   rsi,
+  ma,
 };
 
 export const Indicator = {

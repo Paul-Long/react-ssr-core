@@ -48,6 +48,7 @@ class IndicatorComponent extends Basic {
         <Menu.Item key={Indicator.VOLUME}>交易量</Menu.Item>
         <Menu.Item key={Indicator.BOLL}>布林带</Menu.Item>
         <Menu.Item key={Indicator.KDJ}>KDJ</Menu.Item>
+        <Menu.Item key={Indicator.RSI}>RSI</Menu.Item>
       </Menu>
     );
   };

@@ -3,12 +3,12 @@ import { seriesLine, color } from '@components/charts';
 
 const {bollUPColor, bollMBColor, bollDNColor} = color;
 
-export default function ({data}) {
+export default function ({data, axisIndex}) {
   const bollData = calcBOLL(data);
   const series = {
     ...seriesLine,
-    xAxisIndex: 0,
-    yAxisIndex: 0,
+    xAxisIndex: axisIndex,
+    yAxisIndex: axisIndex,
     showSymbol: false,
   };
   const upLine = {

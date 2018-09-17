@@ -2,7 +2,8 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import echarts from 'echarts';
 import Basic from '../Basic';
-import option from './option';
+// import option from './option';
+import Option from '../option';
 import Tip from './Tip';
 import MACDTip from './MACDTip';
 import { Indicator, KLineType } from '../varible';
@@ -44,16 +45,20 @@ class Left extends Basic {
     return node;
   };
 
-  setOption = (opt) => {
-    opt = opt || {mas: []};
-    this.option = option({
+  setOption = () => {
+    this.option = new Option({
       width: this.size.width,
       height: this.size.height,
-      mas: opt.mas || [],
       manager: this.props.manager,
       indicators: this.indicators,
-      kLineType: this.KLineType,
-    });
+    }).kLine(this.kLineType)
+      .ma()
+      .volume()
+      .macd()
+      .kdj()
+      .boll()
+      .rsi()
+      .json();
 
     if (this.indicators.some(o => o.indicator === Indicator.MACD && o.status === IndicatorStatus.OPEN)) {
       const macdSeries = this.option.series.find(s => s.name === Indicator.MACD);

@@ -1,4 +1,4 @@
-import { axisPointer, color, dataZoomInside, dataZoomSlider, tooltipCross, } from '@components/charts';
+import { tooltipCross, } from '@components/charts';
 
 export default function ({manager}) {
   return {
@@ -33,7 +33,6 @@ export default function ({manager}) {
             manager.emit('macd-tip', macd);
           }
         }
-        // console.log(macd);
       }
     }
   };

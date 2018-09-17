@@ -146,7 +146,5 @@ export function calcRSI(data, N = 14) {
     }
   }
 
-  console.log(result);
-
   return result;
 }
