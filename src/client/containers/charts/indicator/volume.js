@@ -1,4 +1,4 @@
-import { VolumeColor } from '../varible';
+import { VolumeColor, SeriesName } from '../varible';
 import { color, seriesBar, xAxisCategory, yAxisValue } from '@components/charts';
 
 const {FontColor} = color;
@@ -50,7 +50,7 @@ export default function ({category, data, gridIndex, axisIndex}) {
 
   const series = [{
     ...seriesBar,
-    name: 'Volume',
+    name: SeriesName.Volume,
     xAxisIndex: axisIndex,
     yAxisIndex: axisIndex,
     data,

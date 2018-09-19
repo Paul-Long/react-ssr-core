@@ -1,7 +1,9 @@
 import { calcBOLL } from './indicator';
-import { seriesLine, color } from '@components/charts';
+import { seriesLine } from '@components/charts';
+import { bollDnAreaColor, bollDNColor, bollMBColor, bollUpAreaColor, bollUPColor } from '@components/charts/color';
+import { SeriesName } from '../varible';
 
-const {bollUPColor, bollMBColor, bollDNColor} = color;
+const {BOLL_UP, BOLL_MB, BOLL_DN} = SeriesName;
 
 export default function ({data, axisIndex}) {
   const bollData = calcBOLL(data);
@@ -17,10 +19,10 @@ export default function ({data, axisIndex}) {
       width: 1,
       color: bollUPColor,
     },
-    name: 'BOLL-UP',
+    name: BOLL_UP,
     data: bollData.map(b => b ? b.UP - b.DN : null),
     areaStyle: {
-      color: 'rgba(128, 128, 128, 0.2)'
+      color: bollUpAreaColor,
     },
     stack: 'boll',
   };
@@ -30,7 +32,7 @@ export default function ({data, axisIndex}) {
       width: 1,
       color: bollMBColor,
     },
-    name: 'BOLL-MB',
+    name: BOLL_MB,
     data: bollData.map(b => b ? b.MB : null),
   };
   const downLine = {
@@ -39,10 +41,10 @@ export default function ({data, axisIndex}) {
       width: 1,
       color: bollDNColor,
     },
-    name: 'BOLL-DN',
+    name: BOLL_DN,
     data: bollData.map(b => b ? b.DN : null),
     areaStyle: {
-      color: 'transparent'
+      color: bollDnAreaColor
     },
     stack: 'boll',
   };

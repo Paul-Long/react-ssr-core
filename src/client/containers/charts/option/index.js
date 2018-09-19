@@ -11,6 +11,7 @@ import dataZoom from './dataZoom';
 const _data = splitData(baseData);
 
 function Option({data = _data, width, height, manager, indicators = []}) {
+  this.__manager = manager;
   this.__data = data || [];
   this.__width = width;
   this.__height = height;
@@ -22,7 +23,6 @@ function Option({data = _data, width, height, manager, indicators = []}) {
     axisPointer: {...axisPointer},
     xAxis: [],
     yAxis: [],
-    tooltip: tooltip({manager})
   };
 }
 
@@ -88,15 +88,15 @@ Option.prototype.ma = function () {
   const masAll = MAS.map(m => m.value);
   const mas = this.__indicators.filter(o => masAll.some(m => m === o.indicator));
   if (mas.length === 0) return this;
-  const option = Options.ma({data: this.__data.values, mas, axisIndex: 0});
-  this.__option.series = [...this.__option.series, ...option.series];
+  const series = Options.ma({data: this.__data.values, mas, axisIndex: 0});
+  this.__option.series = [...this.__option.series, ...series];
   return this;
 };
 
 Option.prototype.boll = function () {
   if (this.isBlank(Indicator.BOLL)) return this;
 
-  const series = Options.boll({data: this.__data.closes, axisIndex: this.__axisIndex});
+  const series = Options.boll({data: this.__data.closes, axisIndex: 0});
   this.__option.series = [...this.__option.series, ...series];
   return this;
 };
@@ -153,8 +153,7 @@ Option.prototype.json = function () {
   const axisIndex = this.__option.xAxis.length - 1;
   this.__option.xAxis[axisIndex].axisLabel.show = true;
   this.__option.xAxis[axisIndex].axisPointer.label.show = true;
-
-  console.log(this.__option);
+  this.__option.tooltip = tooltip({manager: this.__manager, option: this.__option});
   return this.__option;
 };
 

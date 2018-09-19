@@ -1,4 +1,4 @@
-import { KLineType } from '../varible';
+import { KLineType, SeriesName } from '../varible';
 import { seriesCandlestick, seriesCandlestickO, xAxisCategory, yAxisValue } from '@components/charts';
 
 export default function ({category, data, gridIndex, axisIndex, kLineType}) {
@@ -32,7 +32,7 @@ export default function ({category, data, gridIndex, axisIndex, kLineType}) {
   }
   const ks = {
     ...series,
-    name: 'KLine',
+    name: SeriesName.KLine,
     xAxisIndex: axisIndex,
     yAxisIndex: axisIndex,
     data,

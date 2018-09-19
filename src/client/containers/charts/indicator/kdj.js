@@ -1,5 +1,9 @@
 import { seriesLine, xAxisCategory, yAxisValue } from '@components/charts';
+import {kdjKColor, kdjDColor, kdjJColor} from '@components/charts/color';
 import { calcKDJ } from './indicator';
+import { SeriesName } from '../varible';
+
+const {KDJ_K, KDJ_D, KDJ_J} = SeriesName;
 
 export default function ({category, data, gridIndex, axisIndex}) {
   const kdjData = calcKDJ(data);
@@ -31,26 +35,26 @@ export default function ({category, data, gridIndex, axisIndex}) {
   };
   const KLine = {
     ...series,
-    name: 'KDJ-K',
+    name: KDJ_K,
     data: kdjData.map(d => d ? d.K : null),
     itemStyle: {
-      color: 'white',
+      color: kdjKColor,
     }
   };
   const DLine = {
     ...series,
-    name: 'KDJ-D',
+    name: KDJ_D,
     data: kdjData.map(d => d ? d.D : null),
     itemStyle: {
-      color: 'yellow',
+      color: kdjDColor,
     }
   };
   const JLine = {
     ...series,
-    name: 'KDJ-J',
+    name: KDJ_J,
     data: kdjData.map(d => d ? d.J : null),
     itemStyle: {
-      color: 'purple',
+      color: kdjJColor,
     }
   };
 

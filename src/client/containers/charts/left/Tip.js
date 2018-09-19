@@ -20,8 +20,8 @@ class Tip extends React.PureComponent {
     this.props.manager.on('tipHide', this.handleHide);
   }
 
-  handleChange = (data) => {
-    this.setState({data});
+  handleChange = ({kLine}) => {
+    this.setState({data: kLine});
   };
 
   handleHide = () => {
@@ -58,9 +58,6 @@ class Tip extends React.PureComponent {
 
         <span className={labelCls}>低=</span>
         <span className={textCls}>{data.highest}</span>
-
-        <span className={labelCls}>量=</span>
-        <span className={textCls}>{data.volume}</span>
 
       </div>
     );

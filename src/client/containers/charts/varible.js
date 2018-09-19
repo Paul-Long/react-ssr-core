@@ -53,6 +53,27 @@ export const Indicator = {
   'MA250': 'MA250',
 };
 
+export const SeriesName = {
+  'KLine': 'KLine',
+  'Volume': 'Volume',
+  'MACD': 'MACD',
+  'DIF': 'DIF',
+  'DEA': 'DEA',
+  'KDJ_K': 'KDJ_K',
+  'KDJ_D': 'KDJ_D',
+  'KDJ_J': 'KDJ_J',
+  'BOLL_UP': 'BOLL_UP',
+  'BOLL_MB': 'BOLL_MB',
+  'BOLL_DN': 'BOLL_DN',
+  'RSI': 'RSI',
+  'MA5': 'MA5',
+  'MA10': 'MA10',
+  'MA20': 'MA20',
+  'MA60': 'MA60',
+  'MA120': 'MA120',
+  'MA250': 'MA250',
+};
+
 export const KLineType = {
   'KLINE': 'KLINE',
   'KLINE_O': 'KLINE_O',

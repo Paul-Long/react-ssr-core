@@ -1,7 +1,9 @@
 import { xAxisCategory, yAxisValue, seriesBar, seriesLine, color } from '@components/charts';
 import { calcMACD } from './indicator';
+import { SeriesName } from '../varible';
 
 const {upColor, downColor, difLineColor, deaLineColor} = color;
+const {MACD, DIF, DEA} = SeriesName;
 
 function series(name, ser, axisIndex) {
   return {
@@ -36,7 +38,7 @@ export default function ({category, data, gridIndex, axisIndex}) {
   };
 
   const bar = {
-    ...series('MACD', seriesBar, axisIndex),
+    ...series(MACD, seriesBar, axisIndex),
     data: data.map(m => {
       return {
         value: m.macd,
@@ -45,7 +47,7 @@ export default function ({category, data, gridIndex, axisIndex}) {
     })
   };
   const difLine = {
-    ...series('DIF', seriesLine, axisIndex),
+    ...series(DIF, seriesLine, axisIndex),
     data: data.map(m => m.dif),
     itemStyle: {
       color: difLineColor,
@@ -53,7 +55,7 @@ export default function ({category, data, gridIndex, axisIndex}) {
     showSymbol: false,
   };
   const deaLine = {
-    ...series('DEA', seriesLine, axisIndex),
+    ...series(DEA, seriesLine, axisIndex),
     data: data.map(m => m.signal),
     itemStyle: {
       color: deaLineColor,

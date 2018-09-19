@@ -20,3 +20,11 @@ export const deaLineColor = 'white';
 export const bollUPColor = '#0D4FB8';
 export const bollMBColor = '#B63847';
 export const bollDNColor = '#0D4FB8';
+export const bollUpAreaColor = 'rgba(128, 128, 128, 0.2)';
+export const bollDnAreaColor = 'transparent';
+
+export const kdjKColor = 'white';
+export const kdjDColor = 'yellow';
+export const kdjJColor = 'purple';
+
+export const rsiColor = 'purple';

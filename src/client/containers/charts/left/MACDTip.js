@@ -12,7 +12,7 @@ class MACDTip extends Basic {
 
   componentDidMount() {
     const {manager} = this.props;
-    manager.on('macd-tip', (macd) => {
+    manager.on('tooltip', ({macd}) => {
       this.setState(macd);
     });
     manager.on('tipHide', () => {
