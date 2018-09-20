@@ -21,76 +21,80 @@ export default function ({manager, option}) {
 }
 
 function grid(index, option) {
-  return option.grid[option.xAxis[index].gridIndex].top;
+  return option.grid[option.xAxis[index].gridIndex];
 }
 
-function tip(params, option) {
+export function tip(params, option, flag = false) {
   if (!params || !(params instanceof Array)) return;
   const tip = {};
   for (let i = 0; i < params.length; i++) {
     const series = params[i];
-    switch (series.seriesName) {
+    const name = series.seriesName || series.name;
+    const axisIndex = series.axisIndex >= 0 ? series.axisIndex : series.xAxisIndex;
+    const data = flag ? series.data[series.data.length - 1] : series.data;
+    const diff = flag ? 1 : 0;
+    switch (name) {
       case SeriesName.KLine:
         tip.kLine = tip.kLine || {};
-        tip.kLine.open = series.data[1];
-        tip.kLine.close = series.data[2];
-        tip.kLine.lowest = series.data[3];
-        tip.kLine.highest = series.data[4];
-        tip.kLine.gridIndex = series.axisIndex;
-        tip.kLine.gridTop = grid(series.axisIndex, option);
+        tip.kLine.open = data[1 - diff];
+        tip.kLine.close = data[2 - diff];
+        tip.kLine.lowest = data[3 - diff];
+        tip.kLine.highest = data[4 - diff];
+        tip.kLine.gridIndex = axisIndex;
+        tip.kLine.grid = grid(axisIndex, option);
         break;
       case SeriesName.Volume:
         tip.volume = tip.volume || {};
-        tip.volume.data = series.data[1];
-        tip.volume.gridIndex = series.axisIndex;
+        tip.volume.data = data[1];
+        tip.volume.gridIndex = axisIndex;
         break;
       case SeriesName.MACD:
         tip.macd = tip.macd || {};
-        tip.macd.macd = (series.data || {}).value;
-        tip.macd.gridIndex = series.axisIndex;
-        tip.macd.gridTop = grid(series.axisIndex, option);
+        tip.macd.macd = (data || {}).value;
+        tip.macd.gridIndex = axisIndex;
+        tip.macd.grid = grid(axisIndex, option);
         break;
       case SeriesName.DIF:
         tip.macd = tip.macd || {};
-        tip.macd.dif = series.data;
+        tip.macd.dif = data;
         break;
       case SeriesName.DEA:
         tip.macd = tip.macd || {};
-        tip.macd.dea = series.data;
+        tip.macd.dea = data;
         break;
       case SeriesName.KDJ_K:
         tip.kdj = tip.kdj || {};
-        tip.kdj.k = series.data;
-        tip.kdj.gridIndex = series.axisIndex;
-        tip.kdj.gridTop = grid(series.axisIndex, option);
+        tip.kdj.k = data;
+        tip.kdj.gridIndex = axisIndex;
+        tip.kdj.grid = grid(axisIndex, option);
         break;
       case SeriesName.KDJ_D:
         tip.kdj = tip.kdj || {};
-        tip.kdj.d = series.data;
+        tip.kdj.d = data;
         break;
       case SeriesName.KDJ_J:
         tip.kdj = tip.kdj || {};
-        tip.kdj.j = series.data;
+        tip.kdj.j = data;
         break;
       case SeriesName.BOLL_UP:
         tip.boll = tip.boll || {};
-        tip.boll.up = series.data;
-        tip.boll.gridIndex = series.axisIndex;
-        tip.boll.gridTop = grid(series.axisIndex, option);
+        tip.boll.up = data;
+        tip.boll.gridIndex = axisIndex;
+        tip.boll.grid = grid(axisIndex, option);
         break;
       case SeriesName.BOLL_MB:
         tip.boll = tip.boll || {};
-        tip.boll.mb = series.data;
+        tip.boll.mb = data;
         break;
       case SeriesName.BOLL_DN:
         tip.boll = tip.boll || {};
-        tip.boll.dn = series.data;
+        tip.boll.dn = data;
         break;
       case SeriesName.RSI:
         tip.rsi = tip.rsi || {};
-        tip.rsi.data = series.data;
-        tip.rsi.gridIndex = series.axisIndex;
-        tip.rsi.gridTop = grid(series.axisIndex, option);
+        tip.rsi.data = data;
+        tip.rsi.gridIndex = axisIndex;
+        tip.rsi.grid = grid(axisIndex, option);
         break;
       case SeriesName.MA5:
       case SeriesName.MA10:
@@ -99,9 +103,9 @@ function tip(params, option) {
       case SeriesName.MA120:
       case SeriesName.MA250:
         tip.ma = tip.ma || {};
-        tip.ma[series.seriesName] = series.data;
-        tip.ma.gridIndex = series.axisIndex;
-        tip.ma.gridTop = grid(series.axisIndex, option);
+        tip.ma[name] = data;
+        tip.ma.gridIndex = axisIndex;
+        tip.ma.grid = grid(axisIndex, option);
         break;
       default:
         break;

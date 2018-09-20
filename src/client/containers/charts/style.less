@@ -75,48 +75,19 @@
       bottom: 60px;
     }
     &-tip {
-      position: absolute;
-      top: 10px;
-      left: 50px;
-      &-label {
+      &-kLine, &-macd, &-kdj, &-rsi {
+        position: absolute;
+        display: none;
       }
-      &-text {
-        display: inline-block;
-        margin-right: 10px;
-        width: 80px;
-        min-width: 80px;
-      }
-      &-text.up {
-        color: #0BDD5C;
-      }
-      &-text.down {
-        color: #B63847;
-      }
-    }
-    &-tip-macd {
-      .flex-row;
-      position: absolute;
-      left: 50px;
-      color: white;
-      &-dif {
-        margin-left: 30px;
-        min-width: 500px;
-      }
-      &-dea {
-        color: yellow;
-      }
-      &-button {
-        border: 1px solid #4a4a4a;
-        color: #4a4a4a;
-        border-radius: 3px;
-        margin-left: 5px;
-        margin-top: 1px;
-        &:hover {
-          color: white;
-          border-color: white;
-        }
-        &:active {
-          font-size: 10px;
+      &-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        & > span {
+          display: inline-block;
+          margin-right: 10px;
+          width: 80px;
+          min-width: 80px;
         }
       }
     }

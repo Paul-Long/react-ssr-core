@@ -1,13 +1,13 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import echarts from 'echarts';
+import { IndicatorStatus } from '@containers/charts/varible';
 import Basic from '../Basic';
-// import option from './option';
-import Option from '../option';
+import Option, { calcTip } from '../option';
 import Tip from './Tip';
 import MACDTip from './MACDTip';
 import { Indicator, KLineType } from '../varible';
-import { IndicatorStatus } from '@containers/charts/varible';
+import Tooltip from '../tooltip';
 
 class Left extends Basic {
   constructor(props) {
@@ -46,12 +46,15 @@ class Left extends Basic {
   };
 
   setOption = () => {
-    this.option = new Option({
+    const {manager} = this.props;
+    const opt = {
       width: this.size.width,
       height: this.size.height,
       manager: this.props.manager,
       indicators: this.indicators,
-    }).kLine(this.kLineType)
+    };
+    this.option = new Option(opt)
+      .kLine(this.kLineType)
       .ma()
       .volume()
       .macd()
@@ -59,22 +62,9 @@ class Left extends Basic {
       .boll()
       .rsi()
       .json();
-
-    if (this.indicators.some(o => o.indicator === Indicator.MACD && o.status === IndicatorStatus.OPEN)) {
-      const macdSeries = this.option.series.find(s => s.name === Indicator.MACD);
-      if (macdSeries) {
-        const grid = this.option.grid[this.option.xAxis[macdSeries.xAxisIndex].gridIndex];
-        this.mTip.updateStyle({
-          display: 'flex',
-          top: grid.top - 20,
-          left: grid.left,
-        });
-      } else {
-        this.mTip.updateStyle({display: 'none'});
-      }
-    } else {
-      this.mTip.updateStyle({display: 'none'});
-    }
+    const series = this.option.series;
+    const tip = calcTip(series, this.option, true);
+    manager.emit('tooltip-last', tip);
     this.charts.setOption(this.option, true);
   };
 
@@ -105,13 +95,13 @@ class Left extends Basic {
   handleMouseMove = event => {
     const {manager} = this.props;
     if (event.clientY < this.bgSize.y || event.clientY > this.bgSize.y + this.bgSize.height) {
-      manager.emit('tipHide');
+      manager.emit('tooltip-hide');
       return;
     }
     const option = this.charts.getOption();
     let xy = this.charts.convertFromPixel({seriesIndex: 0}, [event.offsetX, event.offsetY]);
     if (xy[0] >= option.series[0].data.length || xy[0] < option.dataZoom[1].startValue) {
-      manager.emit('tipHide');
+      manager.emit('tooltip-hide');
     }
   };
 
@@ -130,8 +120,9 @@ class Left extends Basic {
           ref={this.saveRef('bg')}
           className={`${prefix}-bg`}
         />
-        <Tip prefixCls={prefix} manager={manager} />
-        <MACDTip ref={this.saveRef('mTip')} prefixCls={prefix} manager={manager} />
+        <Tooltip prefixCls={prefix} manager={manager} />
+        {/*<Tip prefixCls={prefix} manager={manager} />*/}
+        {/*<MACDTip ref={this.saveRef('mTip')} prefixCls={prefix} manager={manager} />*/}
       </div>
     );
   }

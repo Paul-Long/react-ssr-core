@@ -2,7 +2,7 @@ import { axisPointer } from '@components/charts';
 import { upColor, downColor } from '@components/charts/color';
 import { IndicatorStatus, MAS, Indicator } from '../varible';
 import { Options } from '../indicator';
-import tooltip from './tooltip';
+import tooltip, {tip} from './tooltip';
 import baseData from './data';
 import { splitData } from './utils';
 import grid from './grid';
@@ -158,3 +158,5 @@ Option.prototype.json = function () {
 };
 
 export default Option;
+
+export const calcTip = tip;

@@ -104,7 +104,12 @@ export function calcKDJ(data) {
       K = (K * 2 / 3) + (RSV * 1 / 3);
       D = (D * 2 / 3) + (K / 3);
       J = (3 * K) - (2 * D);
-      result.push({RSV, K, D, J});
+      result.push({
+        RSV: +(new Decimal(RSV).toFixed(4)),
+        K: +(new Decimal(K).toFixed(4)),
+        D: +(new Decimal(D).toFixed(4)),
+        J: +(new Decimal(J).toFixed(4)),
+      });
     } else {
       arr.push(C);
       result.push(null);
@@ -140,7 +145,7 @@ export function calcRSI(data, N = 14) {
       RS = A / B;
       RS1 = RS / (1 + RS);
       RSI = 100 * RS1;
-      result.push({A, B, RS, RSI});
+      result.push({A, B, RS, RSI: +(new Decimal(RSI).toFixed(4))});
     } else {
       result.push(null);
     }
