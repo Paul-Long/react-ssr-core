@@ -4,7 +4,12 @@ export default function ({height, maxLength, gridCount = 1}) {
   const top = 50;
   const contentHeight = height - top - 60;
   const h = Math.round(contentHeight * 0.01);
-  const gridHeight = h * 20;
+  let gridHeight = h * 20;
+  if (gridCount >= 3 && gridCount < 5) {
+    gridHeight = h * 15;
+  } else if (gridCount >= 5) {
+    gridHeight = h * 10;
+  }
   const left = ((maxLength - 1) * 7) + 3 + 10;
   const G = {
     show: true,
