@@ -5,6 +5,13 @@ export default function ({height, maxLength, gridCount = 1}) {
   const contentHeight = height - top - 60;
   const h = Math.round(contentHeight * 0.01);
   let gridHeight = h * 20;
+  if (gridCount === 4) {
+    gridHeight = h * 15;
+  } else if (gridCount === 5) {
+    gridHeight = h * 13;
+  } else if (gridCount > 5) {
+    gridHeight = h * 11;
+  }
   if (gridCount >= 3 && gridCount < 5) {
     gridHeight = h * 15;
   } else if (gridCount >= 5) {
