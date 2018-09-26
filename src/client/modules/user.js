@@ -6,8 +6,8 @@ export default [
     url: () => `${root}login`
   },
   {
-    key: 'user.permission',
+    key: 'user.check',
     method: 'get',
-    url: () => `${root}permission`
+    url: () => `${root}check`
   }
 ];

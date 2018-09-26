@@ -1,8 +1,12 @@
 const proxy = require('http-proxy-middleware');
 
 module.exports = app => {
+  // app.use('/api', proxy({
+  //   target: 'http://172.16.66.181:5100',
+  //   changeOrigin: true
+  // }));
   app.use('/api', proxy({
-    target: 'http://172.16.66.181:5100',
-    changeOrigin: true
+    target: 'http://api.houym.com',
+    changeOrigin: true,
   }));
 };

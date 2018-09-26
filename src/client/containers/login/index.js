@@ -9,7 +9,7 @@ import receive from '@utils/receive';
 
 class Login extends React.PureComponent {
   state = {
-    username: '',
+    userName: '',
     password: '',
   };
 
@@ -21,25 +21,25 @@ class Login extends React.PureComponent {
     receive.call(this, {
       key: 'login', nextProps,
       success: () => {
-        const { history } = nextProps;
+        const {history} = nextProps;
         message.success('登录成功');
-        history.push('/');
+        history.push('/home');
       },
       error: (err) => {
-        invariant(err, err);
+        invariant(!err, err, 'error');
       }
     });
   }
 
   handleSubmit = () => {
-    const { username, password } = this.state;
-    if (invariant(username, '请输入用户名')) return false;
+    const {userName, password} = this.state;
+    if (invariant(userName, '请输入用户名')) return false;
     if (invariant(password, '请输入密码')) return false;
-    Action.emit('user.login', { username, password: md5(password) });
+    Action.emit('user.login', {userName, password: md5(password)});
   };
 
   handleChange = (key, value) => {
-    this.setState({ [key]: value });
+    this.setState({[key]: value});
   };
 
   render() {
@@ -49,7 +49,7 @@ class Login extends React.PureComponent {
         <div className={`${prefix}-login-container`}>
           <Input prefix={<Icon type='user' />}
                  placeholder='Username'
-                 onChange={e => this.handleChange('username', e.target.value)}
+                 onChange={e => this.handleChange('userName', e.target.value)}
                  onPressEnter={this.handleSubmit}
           />
           <Input prefix={<Icon type='lock' />}

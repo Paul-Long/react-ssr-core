@@ -1,0 +1,1 @@
+export const LOGO = 'http://houym-1254119810.picsh.myqcloud.com/logo-200_150.png';

@@ -1,11 +1,11 @@
-export default function ({ key, nextProps, loading, success, error }) {
+export default function ({key, nextProps, loading, success, error}) {
   const _this = this;
 
   function callReceive(k) {
     const prop = _this.props[k];
     const nProp = nextProps[k];
     if (prop !== nProp) {
-      const { result, payload, page } = nProp || {};
+      const {result, payload, page} = nProp || {};
       if (nProp.loading) {
         if (isFunction(loading)) {
           loading(payload);
@@ -13,7 +13,13 @@ export default function ({ key, nextProps, loading, success, error }) {
       } else {
         if (nProp.success) {
           if (isFunction(success)) {
-            success(result, payload);
+            if (result.status === 200) {
+              success(result, payload);
+            } else {
+              if (isFunction(error)) {
+                error(result.message);
+              }
+            }
           }
         } else if (nProp.error) {
           if (isFunction(error)) {

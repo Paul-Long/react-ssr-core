@@ -1,3 +1,5 @@
+import { LOGO } from '@constants/images';
+
 export const MAS = [
   {text: 'MA5', value: 'MA5'},
   {text: 'MA10', value: 'MA10'},
@@ -79,4 +81,4 @@ export const KLineType = {
   'KLINE_O': 'KLINE_O',
 };
 
-export const logo = 'http://houym-1254119810.picsh.myqcloud.com/logo-200_150.png?imageView2/0/h/36';
+export const logo = `${LOGO}?imageView2/0/h/36`;
