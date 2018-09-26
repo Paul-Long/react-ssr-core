@@ -6,6 +6,10 @@ echo "start npm install"
 npm i
 echo "npm install finished"
 
+echo "build react"
+npm run build:react
+echo "build react finished"
+
 echo "build echarts"
 npm run build:echarts
 echo "build echarts finished"
