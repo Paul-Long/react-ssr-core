@@ -9,9 +9,11 @@
     "hot": "better-npm-run hot",
     "hot:client": "better-npm-run hot:client",
     "hot:server": "better-npm-run hot:server",
+    "build": "rimraf dist && rimraf build && gulp build-react && better-npm-run build:echarts && better-npm-run build:client && better-npm-run build:server && gulp build",
     "build:client": "better-npm-run build:client",
     "build:server": "better-npm-run build:server",
-    "build:echarts": "better-npm-run build:echarts"
+    "build:echarts": "better-npm-run build:echarts",
+    "build:react": "gulp build-react"
   },
   "betterScripts": {
     "hot:client": {
@@ -86,6 +88,10 @@
     "echarts": "^4.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fs-extra": "0.26.7",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-gzip": "^1.4.2",
+    "gulp-tar": "^2.1.0",
     "history": "^4.7.2",
     "ignore-loader": "^0.1.2",
     "invariant": "^2.2.4",
@@ -104,10 +110,13 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
+    "rimraf": "^2.6.2",
     "rollup": "0.50.0",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "2.0.1",
+    "shelljs": "^0.8.2",
     "style-loader": "^0.22.1",
+    "supervisor": "^0.12.0",
     "webpack": "^4.16.5",
     "webpack-bundle-analyzer": "^3.0.1",
     "webpack-cli": "^3.1.0",
@@ -121,7 +130,6 @@
     "express": "^4.16.3",
     "express-cluster": "0.0.5",
     "http-proxy-middleware": "^0.18.0",
-    "log4js": "^3.0.5",
-    "supervisor": "^0.12.0"
+    "log4js": "^3.0.5"
   }
 }

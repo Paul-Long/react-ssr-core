@@ -1,0 +1,24 @@
+{
+  "presets": [
+    "env",
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true
+      }
+    ],
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "appenders": {
+    "logFile": {
+      "type": "dateFile",
+      "filename": "log/ssr-core.log",
+      "pattern": "-yyyy-MM-dd"
+    },
+    "console": {
+      "type": "console"
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "logFile",
+        "console"
+      ],
+      "level": "DEBUG"
+    }
+  }
+}

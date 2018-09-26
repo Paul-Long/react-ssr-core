@@ -24,7 +24,9 @@ const config = {
     }
   },
   externals: {
-    'echarts': 'echarts'
+    'echarts': 'echarts',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
   },
   module: {
     rules: [
