@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const concat = require('gulp-concat');
 const tar = require('gulp-tar');
 const gzip = require('gulp-gzip');
-const shell = require('shelljs');
 const fs = require('fs');
 const path = require('path');
 
@@ -50,10 +49,6 @@ gulp.task('package', ['copy-static', 'copy-entry', 'copy-server', 'copy-bin', 'c
   delete packageJson.betterScripts;
   packageJson.scripts = {start: 'node index.js'};
   fs.writeFileSync(path.resolve(__dirname, './build/ssr/package.json'), JSON.stringify(packageJson, null, 2));
-  shell.cd('./build/ssr');
-  shell.exec('npm install');
-  shell.echo('npm install finished');
-  shell.cd('../../');
   return gulp.src([
     'build/ssr/**/*',
     'build/ssr/.babelrc',
