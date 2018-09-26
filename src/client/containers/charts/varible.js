@@ -78,3 +78,5 @@ export const KLineType = {
   'KLINE': 'KLINE',
   'KLINE_O': 'KLINE_O',
 };
+
+export const logo = 'http://houym-1254119810.picsh.myqcloud.com/logo-200_150.png?imageView2/0/h/36';

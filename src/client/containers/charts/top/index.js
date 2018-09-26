@@ -2,7 +2,7 @@ import React from 'react';
 import Basic from '../Basic';
 import { Icon, Radio } from 'antd';
 import Group from './Group';
-import { MAS, VALS, YIELDS, MaType } from '../varible';
+import { MAS, VALS, YIELDS, MaType, logo } from '../varible';
 import { IndicatorStatus } from '../varible';
 
 class Top extends Basic {
@@ -44,6 +44,7 @@ class Top extends Basic {
     const prefix = `${prefixCls}-top`;
     return (
       <div className={prefix}>
+        <img src={logo} height={36} />
         <Radio.Group size={'small'} defaultValue='a' className='ssr-radio-button'>
           <Radio.Button value='a'>十年国开债</Radio.Button>
           <Radio.Button value='b'>十年国债</Radio.Button>
