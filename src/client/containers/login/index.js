@@ -18,17 +18,9 @@ class Login extends React.PureComponent {
   };
 
   componentWillReceiveProps(nextProps) {
-    receive.call(this, {
-      key: 'login', nextProps,
-      success: () => {
-        const {history} = nextProps;
-        message.success('登录成功');
-        history.push('/home');
-      },
-      error: (err) => {
-        invariant(!err, err, 'error');
-      }
-    });
+    receive.call(this, 'login', ...arguments)
+      .success(() => nextProps.history.replace('/home'))
+      .error(err => invariant(!err, err, 'error'));
   }
 
   handleSubmit = () => {

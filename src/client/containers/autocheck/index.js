@@ -20,18 +20,13 @@ export default (Node) => {
         Action.emit('user.check');
       }
 
-      componentWillReceiveProps(nextProps) {
-        receive.call(this, {
-          key: 'check', nextProps,
-          success: (result) => {
-            this.setState({checking: false});
-          },
-          error: (err) => {
+      componentWillReceiveProps() {
+        receive.call(this, 'check', ...arguments)
+          .success(() => this.setState({checking: false}))
+          .error((err) => {
             invariant(!err, err, 'error');
-            const {history} = nextProps;
-            history.push('/login');
-          }
-        });
+            this.props.history.push('/login');
+          });
       }
 
       render() {
