@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import app from './app';
+import app from './app-client';
 
 const history = createHistory();
 

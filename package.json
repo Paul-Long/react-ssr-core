@@ -13,7 +13,8 @@
     "build:client": "better-npm-run build:client",
     "build:server": "better-npm-run build:server",
     "build:echarts": "better-npm-run build:echarts",
-    "build:react": "gulp build-react"
+    "build:react": "gulp build-react",
+    "clean": "rimraf dist && rimraf build"
   },
   "betterScripts": {
     "hot:client": {

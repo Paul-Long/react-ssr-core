@@ -16,6 +16,8 @@ const config = {
       '@constants': path.resolve(client, 'constants'),
       '@actions': path.resolve(client, 'actions'),
       '@caches': path.resolve(client, 'caches'),
+      '@routes': path.resolve(client, 'routes'),
+      '@async': path.resolve(client, 'routes/async/'),
     }
   },
   plugins: [

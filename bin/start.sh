@@ -6,6 +6,10 @@ echo "start npm install"
 npm i
 echo "npm install finished"
 
+echo "clean dist"
+npm run clean
+echo "clean finished"
+
 echo "build react"
 npm run build:react
 echo "build react finished"

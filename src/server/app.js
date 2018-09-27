@@ -15,7 +15,7 @@ const spa = require('./spa');
 const app = express();
 const proxy = require('./proxy');
 
-app.use(express.static('.'));
+app.use(express.static('./dist'));
 app.get('/*', spa);
 proxy(app);
 

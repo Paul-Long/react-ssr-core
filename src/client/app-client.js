@@ -3,7 +3,7 @@ import React from 'react';
 import Action from '@actions';
 import App from './redux/create-app';
 import modules from './modules';
-import routes from './routes';
+import routes from './routes/client';
 import './themes';
 
 export default ({history, url}) => {

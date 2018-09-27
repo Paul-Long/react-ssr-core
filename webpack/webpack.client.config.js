@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const antTheme = require('./ant');
 
@@ -7,9 +8,11 @@ const client = path.resolve(root, 'src/client/');
 const env = process.env.NODE_ENV;
 
 const config = {
-  entry: path.resolve(client, 'render-browser.js'),
+  entry: {
+    'bundle_browser': path.resolve(client, 'render-browser.js')
+  },
   output: {
-    filename: 'bundle_browser.js',
+    filename: '[name].js',
     path: path.resolve(root, 'dist'),
   },
   resolve: {
@@ -21,6 +24,8 @@ const config = {
       '@constants': path.resolve(client, 'constants'),
       '@actions': path.resolve(client, 'actions'),
       '@caches': path.resolve(client, 'caches'),
+      '@routes': path.resolve(client, 'routes'),
+      '@async': path.resolve(client, 'routes/async/'),
     }
   },
   externals: {
@@ -54,7 +59,8 @@ const config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('app.css'),
+    new ExtractTextPlugin({filename: 'app.css', allChunks: true}),
+    new webpack.HashedModuleIdsPlugin(),
   ]
 };
 config.mode = env;

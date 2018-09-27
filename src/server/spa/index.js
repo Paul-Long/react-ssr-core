@@ -14,13 +14,13 @@ module.exports = function (req, res, next) {
 <html>
   <meta charset="UTF-8">
   <link rel="icon" href="http://houym-1254119810.cossh.myqcloud.com/favicon.ico" type="image/x-icon">
-  <link href="./dist/app.css" rel="stylesheet">
+  <script src="./react.min.js"></script>
+  <script src="./echarts.min.js"></script>
+  <link href="./app.css" rel="stylesheet">
 </head>
 <body>
-<div id="app">${content}</div>
-<script src="./dist/react.min.js"></script>
-<script src="./dist/echarts.min.js"></script>
-<script src="./dist/bundle_browser.js"></script>
+  <div id="app">${content}</div>
+  <script src="./bundle_browser.js"></script>
 </body>
 </html>
   `);
