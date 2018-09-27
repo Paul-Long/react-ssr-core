@@ -14,9 +14,9 @@ module.exports = function (req, res, next) {
 <html>
   <meta charset="UTF-8">
   <link rel="icon" href="http://houym-1254119810.cossh.myqcloud.com/favicon.ico" type="image/x-icon">
+  <link href="./app.css" rel="stylesheet">
   <script src="./react.min.js"></script>
   <script src="./echarts.min.js"></script>
-  <link href="./app.css" rel="stylesheet">
 </head>
 <body>
   <div id="app">${content}</div>
