@@ -6,6 +6,7 @@ import home from '@async/home';
 import charts from '@async/charts';
 import help from '@async/help';
 import about from '@async/about';
+import users from '@async/users';
 import '../themes';
 
 export default ({history}) => {
@@ -18,6 +19,7 @@ export default ({history}) => {
           <Route path='/about' exact component={about} />
           <Route path='/home' exact component={home} />
           <Route path='/charts' exact component={charts} />
+          <Route path='/users' exact component={users} />
         </App>
       )} />
     </Switch>

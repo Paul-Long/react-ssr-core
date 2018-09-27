@@ -6,6 +6,7 @@ import Charts from '@containers/charts';
 import Home from '@containers/home';
 import Help from '@containers/help';
 import About from '@containers/about';
+import Users from '@containers/users';
 
 export default ({history, url}) => {
   const routes = (
@@ -17,6 +18,7 @@ export default ({history, url}) => {
           <Route path='/help' exact component={Help} />
           <Route path='/about' exact component={About} />
           <Route path='/home' exact component={Home} />
+          <Route path='/users' exact component={Users} />
         </App>
       )} />
     </Switch>
