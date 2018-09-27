@@ -7,6 +7,7 @@ import Top from './top';
 import Bottom from './bottom';
 import Toolbar from './toolbar';
 import Manager from './Manager';
+import title from '@utils/title';
 
 class Charts extends React.Component {
   static propTypes = {
@@ -19,6 +20,10 @@ class Charts extends React.Component {
   constructor(props) {
     super(props);
     this.manager = new Manager();
+  }
+
+  componentDidMount() {
+    title.call(this);
   }
 
   shouldComponentUpdate() {

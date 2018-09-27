@@ -1,11 +1,14 @@
-import './Login.less';
+import './style.less';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button, Icon, Input, message } from 'antd';
+import { Button, Icon, Input } from 'antd';
 import Action from '@actions';
 import md5 from 'blueimp-md5';
 import invariant from '@utils/invariant';
 import receive from '@utils/receive';
+import title from '@utils/title';
+import { LOGO } from '@constants/images';
 
 class Login extends React.PureComponent {
   state = {
@@ -13,9 +16,13 @@ class Login extends React.PureComponent {
     password: '',
   };
 
-  static defaultProps = {
-    prefix: 'ss',
+  static propTypes = {
+    prefixCls: PropTypes.string,
   };
+
+  componentDidMount() {
+    title.call(this);
+  }
 
   componentWillReceiveProps(nextProps) {
     receive.call(this, 'login', ...arguments)
@@ -35,10 +42,11 @@ class Login extends React.PureComponent {
   };
 
   render() {
-    const prefix = 'ss';
+    const {prefixCls} = this.props;
     return (
-      <div className={`${prefix}-login`}>
-        <div className={`${prefix}-login-container`}>
+      <div className={`${prefixCls}-login`}>
+        <div className={`${prefixCls}-login-container`}>
+          <img src={`${LOGO}?imageView2/0/h/60`} />
           <Input prefix={<Icon type='user' />}
                  placeholder='Username'
                  onChange={e => this.handleChange('userName', e.target.value)}
