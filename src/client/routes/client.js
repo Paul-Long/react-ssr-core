@@ -7,6 +7,7 @@ import charts from '@async/charts';
 import help from '@async/help';
 import about from '@async/about';
 import users from '@async/users';
+import cosFile from '@async/cosfile';
 import '../themes';
 
 export default ({history}) => {
@@ -20,6 +21,7 @@ export default ({history}) => {
           <Route path='/home' exact component={home} />
           <Route path='/charts' exact component={charts} />
           <Route path='/users' exact component={users} />
+          <Route path='/cosFile' exact component={cosFile} />
         </App>
       )} />
     </Switch>
