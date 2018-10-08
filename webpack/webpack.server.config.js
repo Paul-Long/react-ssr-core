@@ -10,15 +10,16 @@ const config = {
   target: 'node',
   externals: [nodeExternals({
     whitelist: [
-      'fast-table',
-      'react-router-bundle',
-      'prop-types',
+      'blueimp-md5',
       'classnames',
       'decimal.js-light',
       'echarts',
-      'moment',
+      'fast-table',
       'invariant',
       'isomorphic-fetch',
+      'moment',
+      'prop-types',
+      'react-router-bundle',
     ]
   })],
   output: {
