@@ -1,15 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Base from '@containers/Base';
-import { Button } from 'antd';
 import { logo } from './varible';
+import User from './User';
 
 class Top extends Base {
   render() {
     const {prefixCls} = this.props;
     return (
       <div className={`${prefixCls}-top`}>
-        <img src={logo} />
-        <Button size='small'>新增</Button>
+        <Link to='/home'>
+          <img src={logo} />
+        </Link>
+        <User prefixCls={prefixCls} />
       </div>
     );
   }
