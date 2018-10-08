@@ -9,7 +9,26 @@ const config = {
   entry: path.resolve(root, 'src/client/render-server.js'),
   target: 'node',
   externals: [nodeExternals({
-    whitelist: ['fast-table']
+    whitelist: [
+      'fast-table',
+      'react',
+      'react-dom',
+      'react-router',
+      'react-router-dom',
+      'react-redux',
+      'react-router-bundle',
+      'redux',
+      'redux-saga',
+      'prop-types',
+      'classnames',
+      'antd',
+      'decimal.js-light',
+      'echarts',
+      'moment',
+      'history',
+      'invariant',
+      'isomorphic-fetch',
+    ]
   })],
   output: {
     libraryTarget: 'commonjs2',
@@ -51,7 +70,7 @@ if (env === 'development') {
 }
 
 if (env === 'production') {
-  // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-  // config.plugins.push(new BundleAnalyzerPlugin());
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  config.plugins.push(new BundleAnalyzerPlugin());
 }
 module.exports = config;
