@@ -13,7 +13,6 @@ const config = {
       'blueimp-md5',
       'classnames',
       'decimal.js-light',
-      'echarts',
       'fast-table',
       'invariant',
       'isomorphic-fetch',
