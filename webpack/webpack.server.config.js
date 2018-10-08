@@ -11,12 +11,7 @@ const config = {
   externals: [nodeExternals({
     whitelist: [
       'fast-table',
-      'react-router',
-      'react-router-dom',
-      'react-redux',
       'react-router-bundle',
-      'redux',
-      'redux-saga',
       'prop-types',
       'classnames',
       'decimal.js-light',
