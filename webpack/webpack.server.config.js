@@ -21,6 +21,8 @@ const config = {
       'classnames',
       'decimal.js-light',
       'echarts',
+      'moment',
+      'invariant',
       'isomorphic-fetch',
     ]
   })],
