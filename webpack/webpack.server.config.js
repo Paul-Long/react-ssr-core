@@ -19,12 +19,8 @@ const config = {
       'redux-saga',
       'prop-types',
       'classnames',
-      'antd',
       'decimal.js-light',
       'echarts',
-      'moment',
-      'history',
-      'invariant',
       'isomorphic-fetch',
     ]
   })],
