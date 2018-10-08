@@ -45,6 +45,10 @@ gulp.task('copy-config', function () {
 });
 
 gulp.task('package', ['copy-static', 'copy-entry', 'copy-server', 'copy-bin', 'copy-config'], function () {
+  delete packageJson.devDependencies;
+  delete packageJson.betterScripts;
+  delete packageJson.scripts;
+  packageJson.scripts = {start: 'node index.js'};
   fs.writeFileSync(path.resolve(__dirname, './build/ssr/package.json'), JSON.stringify(packageJson, null, 2));
   return gulp.src([
     'build/ssr/**/*',
