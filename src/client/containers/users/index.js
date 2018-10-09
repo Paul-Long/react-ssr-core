@@ -2,13 +2,13 @@ import './style.less';
 import React from 'react';
 import { connect } from 'react-redux';
 import Base from '@containers/Base';
-import Action from '@actions';
 import AutoCheck from '@containers/autocheck';
 import Table from 'fast-table';
 import columns from './columns';
-import receive from '@utils/receive';
-import invariant from '@utils/invariant';
+import fetch from '@fetch';
+import result from '@utils/result';
 import Top from './Top';
+import Action from '@actions';
 
 @AutoCheck
 class Users extends Base {
@@ -16,31 +16,28 @@ class Users extends Base {
     users: []
   };
 
-  componentWillMount() {
-    Action.emit('user.list');
-  }
+  static fetch = async (store) => {
+    const res = await fetch.get('/api/user/');
+    return await result(res)
+      .success((content) => store.dispatch({type: 'user.list_SUCCESS', result: content}));
+  };
 
-  componentWillReceiveProps(nextProps) {
-    receive.call(this, 'users', ...arguments)
-      .success(({content}) => {
-        this.setState({users: content});
-      })
-      .error(err => {
-        invariant(!err, err, 'error');
-        this.setState({users: []});
-      });
+  componentWillMount() {
+    const {users} = this.props;
+    if (!users) {
+      Action.emit('user.list');
+    }
   }
 
   render() {
-    const {prefixCls} = this.props;
-    const {users} = this.state;
+    const {prefixCls, users} = this.props;
     const prefix = `${prefixCls}-users`;
     return (
       <div className={prefix}>
         <Top prefixCls={prefix} />
         <Table
           columns={columns.call(this)}
-          dataSource={users}
+          dataSource={users || []}
         />
       </div>
     );
@@ -49,7 +46,7 @@ class Users extends Base {
 
 function mapStateToProps(state) {
   return {
-    users: state.user.list
+    users: state.user.list.result
   };
 }
 

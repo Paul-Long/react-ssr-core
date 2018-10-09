@@ -18,6 +18,7 @@ const config = {
       '@caches': path.resolve(client, 'caches'),
       '@routes': path.resolve(client, 'routes'),
       '@async': path.resolve(client, 'routes/async/'),
+      '@fetch': path.resolve(client, 'utils/fetch.js'),
     }
   },
   plugins: [

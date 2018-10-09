@@ -1,9 +1,13 @@
 const path = require('path');
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const HappyPack = require('happypack');
+const os = require('os');
 
 const root = path.resolve(__dirname, '../');
 const client = path.resolve(root, 'src/client/');
 const env = process.env.NODE_ENV;
+const happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length});
 
 const config = {
   entry: path.resolve(root, 'src/client/render-server.js'),
@@ -37,13 +41,14 @@ const config = {
       '@caches': path.resolve(client, 'caches'),
       '@routes': path.resolve(client, 'routes'),
       '@async': path.resolve(client, 'routes/async/'),
+      '@fetch': path.resolve(client, 'utils/fetch.js'),
     }
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        use: ['babel-loader'],
+        use: ['happypack/loader?id=babel'],
       },
       {
         test: /\.(css|less)/,
@@ -51,7 +56,17 @@ const config = {
       },
     ]
   },
-  plugins: [],
+  plugins: [
+    new HappyPack({
+      id: 'babel',
+      loaders: ['babel-loader'],
+      threadPool: happyThreadPool,
+      verbose: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(env)
+    }),
+  ],
 };
 
 config.mode = env;

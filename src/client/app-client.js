@@ -12,7 +12,7 @@ export default ({history, url}) => {
   app.router(() => {
     return routes({history, url});
   });
-  const container = app.start();
-  new Action({dispatch: app._store.dispatch});
+  const container = app.start({initialState: window.__INITIAL_STATE__});
+  new Action({dispatch: app._store.dispatch, history});
   return container;
 }

@@ -23,5 +23,8 @@ export default function (opts = {}) {
     devtools = window.__REDUX_DEVTOOLS_EXTENSION__;
     enhancers.push(devtools(window.__REDUX_DEVTOOLS_EXTENSION__OPTIONS));
   }
-  return createStore(reducers, initialState, compose(...enhancers));
+  if (Object.keys(initialState).length > 0) {
+    return createStore(reducers, initialState, compose(...enhancers));
+  }
+  return createStore(reducers, compose(...enhancers));
 }

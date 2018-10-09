@@ -7,7 +7,7 @@ import 'react-redux';
 const cSagaMiddleware = createSagaMiddleware.default || createSagaMiddleware;
 
 export default function create(createOpts = {}) {
-  const { setupApp, onError: onErr, onEffect, onFetchOption, onReducer, history } = createOpts;
+  const {setupApp, onError: onErr, onEffect, onFetchOption, onReducer, history} = createOpts;
   const app = {
     _models: [],
     model,
@@ -30,17 +30,17 @@ export default function create(createOpts = {}) {
     app._reducerMiddleware = middleware;
   }
 
-  function start(app) {
+  function start(app, initialState = {}) {
     const sagaMiddleware = cSagaMiddleware();
     const store = createStore({
       reducers: reducerBuilder(app._models, onReducer),
-      initialState: {},
+      initialState,
       sagaMiddleware,
     });
     app._store = store;
 
     store.runSaga = sagaMiddleware.run;
-    const sagas = sagaBuilder(app._models, { onEffect, onFetchOption, history });
+    const sagas = sagaBuilder(app._models, {onEffect, onFetchOption, history});
     sagaMiddleware.run(sagas);
     setupApp(app);
   }

@@ -26,7 +26,14 @@ class Login extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     receive.call(this, 'login', ...arguments)
-      .success(() => nextProps.history.replace('/home'))
+      .success(() => {
+        const {state} = nextProps.location;
+        if (state) {
+          nextProps.history.push(state);
+        } else {
+          nextProps.history.push('/home');
+        }
+      })
       .error(err => invariant(!err, err, 'error'));
   }
 

@@ -5,10 +5,11 @@ const __action = init();
 class Action {
   _dispatch;
 
-  constructor({ dispatch }) {
+  constructor({dispatch, history}) {
     const instance = __action();
     if (instance) return instance;
     this._dispatch = dispatch;
+    this._history = history;
     __action(this);
   }
 
@@ -16,7 +17,7 @@ class Action {
     let timer = setTimeout(() => {
       clearTimeout(timer);
       timer = null;
-      __action()._dispatch({ type, payload });
+      __action()._dispatch({type, payload});
     });
   };
 
@@ -24,7 +25,7 @@ class Action {
     let timer = setTimeout(() => {
       clearTimeout(timer);
       timer = null;
-      __action()._dispatch({ type: `${type}_SUCCESS`, ...payload });
+      __action()._dispatch({type: `${type}_SUCCESS`, ...payload});
     });
   };
 
@@ -32,8 +33,12 @@ class Action {
     let timer = setTimeout(() => {
       clearTimeout(timer);
       timer = null;
-      __action()._dispatch({ type: `${type}_FAIL`, payload: { result: null } });
+      __action()._dispatch({type: `${type}_FAIL`, payload: {result: null}});
     });
+  };
+
+  static push = (location) => {
+    __action()._history.push(location);
   };
 }
 

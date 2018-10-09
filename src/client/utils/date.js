@@ -8,6 +8,7 @@ Date.prototype.format = function (fmt) { //author: meizz
   var o = {
     'M+': this.getMonth() + 1,                 //月份
     'd+': this.getDate(),                    //日
+    'D+': this.getDate(),                    //日
     'H+': this.getHours(),                   //小时
     'h+': this.getHours(),                   //小时
     'm+': this.getMinutes(),                 //分

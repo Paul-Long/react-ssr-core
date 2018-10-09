@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Spin from '@components/spin';
-import Action from '@actions';
-import receive from '@utils/receive';
+import hoistStatics from 'hoist-non-react-statics';
+import fetch from '@fetch';
 import invariant from '@utils/invariant';
 
 export default (Node) => {
-  return connect(function (state) {
+  return hoistStatics(connect(function (state) {
     return {
       check: state.user.check,
     };
@@ -16,23 +15,24 @@ export default (Node) => {
         checking: true,
       };
 
-      componentWillMount() {
-        Action.emit('user.check');
-      }
-
-      componentWillReceiveProps() {
-        receive.call(this, 'check', ...arguments)
-          .success(() => this.setState({checking: false}))
-          .error((err) => {
-            invariant(!err, err, 'error');
-            this.props.history.push('/login');
-          });
+      componentDidMount() {
+        const {pathname} = this.props.location;
+        setTimeout(async () => {
+          const res = await fetch.get('/api/user/check');
+          const {status, message} = res;
+          if (status === 400) {
+            invariant(!message, message, 'error');
+            this.props.history.push({
+              pathname: '/login',
+              state: {pathname},
+            });
+          }
+        });
       }
 
       render() {
-        const {checking} = this.state;
-        return checking ? <Spin /> : <Node {...this.props} />;
+        return <Node {...this.props} />;
       }
     }
-  );
+  ), Node);
 }

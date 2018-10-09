@@ -8,7 +8,7 @@ import { isFunction } from './utils';
 import create from './core';
 
 function createApp(opts = {}) {
-  const { onEffect, onFetchOption, onReducer } = opts;
+  const {onEffect, onFetchOption, onReducer} = opts;
   const history = opts.history || createHistory();
   const createOpts = {
     setupApp(app) {
@@ -26,14 +26,14 @@ function createApp(opts = {}) {
   app.start = start;
   return app;
 
-  function start() {
+  function start({initialState}) {
     invariant(
       app._router,
       `[app.router] router must be registered before app.start()`,
     );
 
     if (!app._store) {
-      oldAppStart(app);
+      oldAppStart(app, initialState);
     }
 
     const store = app._store;

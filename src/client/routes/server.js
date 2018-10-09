@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, StaticRouter, Switch } from 'react-router';
+import { renderRoutes } from 'react-router-config';
 import App from '@containers/app';
 import Login from '@containers/login';
 import Charts from '@containers/charts';
@@ -9,25 +9,31 @@ import About from '@containers/about';
 import Users from '@containers/users';
 import CosFile from '@containers/cosfile';
 
-export default ({history, url}) => {
-  const routes = (
-    <Switch>
-      <Route path='/login' exact component={Login} />
-      <Route path='/' component={(props) => (
-        <App {...props}>
-          <Route path='/charts' exact component={Charts} />
-          <Route path='/help' exact component={Help} />
-          <Route path='/about' exact component={About} />
-          <Route path='/home' exact component={Home} />
-          <Route path='/users' exact component={Users} />
-          <Route path='/cosFile' exact component={CosFile} />
-        </App>
-      )} />
-    </Switch>
-  );
+const AppWrap = ({route, ...props}) => {
   return (
-    <StaticRouter context={{}} location={url}>
-      {routes}
-    </StaticRouter>
+    <App {...props}>
+      {renderRoutes(route.routes)}
+    </App>
   );
+};
+export default () => {
+  return [
+    {
+      path: '/login',
+      exact: true,
+      component: Login,
+    },
+    {
+      path: '/',
+      component: AppWrap,
+      routes: [
+        {path: '/charts', exact: true, component: Charts},
+        {path: '/help', exact: true, component: Help},
+        {path: '/about', exact: true, component: About},
+        {path: '/home', exact: true, component: Home},
+        {path: '/users', exact: true, component: Users},
+        {path: '/cosFile', exact: true, component: CosFile},
+      ]
+    }
+  ];
 }
