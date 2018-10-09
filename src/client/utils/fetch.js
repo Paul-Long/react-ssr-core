@@ -9,7 +9,10 @@ const baseHeaders = {
 
 const __fetch = init();
 
-const root = 'http://localhost:3100';
+let root = '';
+if (process.env.RENDER_SERVER) {
+  root = 'http://api.houym.com';
+}
 
 class Fetch {
   constructor() {
